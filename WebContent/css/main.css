@@ -67,9 +67,9 @@ video {
  */
 
 fieldset {
-    border: 0;
-    margin: 0;
-    padding: 0;
+    border: 10px;
+    margin: 5px;
+    padding: 5pxs;
 }
 
 /*

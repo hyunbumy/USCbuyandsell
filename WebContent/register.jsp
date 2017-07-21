@@ -1,12 +1,32 @@
-<!DOCTYPE html>
-<html>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html class="no-js" lang="">
 <head>
-	<meta charset="UTF-8">
-	<title>User Registration</title>
-	<link href="css/nav.css" rel="stylesheet" type="text/css">
+<%@ page import="buyAndSell.*"%>
+  
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>User Register</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <!-- Place favicon.ico in the root directory -->
+
+    <!-- Link stylesheets-->
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link href="css/nav.css" rel="stylesheet" type="text/css">
 	<link href="https://fonts.googleapis.com/css?family=Cinzel" rel="stylesheet">
-	
-	
+      
+    <!-- Load js files-->
+    <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.12.0.min.js"><\/script>')</script>
+    <script src="js/plugins.js"></script>
+    <script src="js/main.js"></script>
 	<style>
 		h1 {
 	    		text-align: center;
@@ -28,41 +48,18 @@
 				background-color: white;
 			}
 	</style>
+	
+	<script>
+        function getHeader() {
+	      	$("#login_header").load("logged_out.html");
+    	}
+    </script>
 </head>
-	<body>
-	
-		<div id="outercontainer">
-			<div id="nav">
-
-				<ul>
-					<li><a class="active" href="homepage.jsp">Home</a></li>
-
-					<li><a href="#">Departments</a>
-						<ul>
-						    <li><a href="dep1.html">Dep1</a></li>
-					      	<li><a href="dep2.html">Dep2</a></li>
-					   	</ul>
-					</li>
-
-					<li><a href="#">Account</a>
-
-						<ul>
-							<li><a href="./wishlist">Profile</a></li>
-					        <li><a href="./wishlist">Wishlist</a></li>
-					        <li><a href="inbox.html">Inbox</a></li>
-					    </ul>
-					</li>
-
-					<li style="float:right;"><a href="./logout.html">Log Out</a></li>
-					<div style="clear:both;"></div>
-
-				</ul>
-			</div>
-
-		</div> 
-	
+	<body onload="getHeader()">
+	<div id="login_header">Placeholder</div>
+		
 		<div>
-			<br><br>
+			<br><br><br/>
 			<h3>Create Account</h3>
 			<h4>
 			<form name="registerform" action="register_user" method="POST" class="pure-form">
