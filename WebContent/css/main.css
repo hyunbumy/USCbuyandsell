@@ -94,7 +94,44 @@ textarea {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
-
+input[type=text]
+{
+  	border: 1px solid;
+  	border-radius:4px;
+  	box-sizing:border-box;
+}
+input[type=email]
+{
+  	border: 1px solid;
+  	border-radius:4px;
+  	box-sizing:border-box;
+}
+input[type=tel]
+{
+  	border: 1px solid;
+  	border-radius:4px;
+  	box-sizing:border-box;
+}
+input[type=password]
+{
+  	border: 1px solid;
+  	border-radius:4px;
+  	box-sizing:border-box;
+}
+input[type=submit]
+{
+ 	background-color: #FFDF00;
+ 	color:black;
+ 	border-radius:4px;
+ 	cursor:pointer;
+}
+button
+{
+ 	background-color: #FFDF00;
+ 	color:black;
+ 	border-radius:4px;
+ 	cursor:pointer;
+}
 
 
 

@@ -43,6 +43,7 @@
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.12.0.min.js"><\/script>')</script>
         <script src="js/plugins.js"></script>
         <script src="js/main.js"></script>
+        
         <style>			
         	#main
         	{
@@ -63,19 +64,11 @@
         	{
         		width:73%;
         		height:100%;
-        		font-size:30px;
-        		border: 1px solid;
-        		border-radius:4px;
-        		box-sizing:border-box;
         	}
         	input[type=submit]
         	{
         		width:10%;
         		height:100%;
-        		background-color: #FFDF00;
-        		color:black;
-        		border-radius:4px;
-        		cursor:pointer;
         	}
         	select
         	{

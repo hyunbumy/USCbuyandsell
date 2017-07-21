@@ -35,9 +35,7 @@
 		    text-align: center;
 		}
 		h3 {text-align: center;} 	
-		h4 {text-align: center;}
-		h5 {text-align: left;}
-		h6 {text-align: center;}
+		#reg_form {text-align: center;}
 	</style>
 	
 	<style>
@@ -51,7 +49,7 @@
 	
 	<script>
         function getHeader() {
-	      	$("#login_header").load("logged_out.html");
+	      	$("#login_header").load("logged_out_loginpage.html");
     	}
     </script>
 </head>
@@ -61,8 +59,7 @@
 		<div>
 			<br><br><br/>
 			<h3>Create Account</h3>
-			<h4>
-			<form name="registerform" action="register_user" method="POST" class="pure-form">
+			<form id="reg_form" name="registerform" action="register_user" method="POST" class="pure-form">
 				<fieldset>
 		  			Your Name: <br>
 		  			<input type="text" name="username" placeholder="name" required>
@@ -107,7 +104,6 @@
 					<br>
 				</fieldset>
 			</form> 
-			</h4>
 		
 		
 		</div>
