@@ -1,9 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@ page import="buyAndSell.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html class="no-js" lang="">
     <head>
-    <%@ page import="buyAndSell.*"%>
+
+    
+    <%
+    Store store = (Store) request.getSession().getAttribute("store");
+    Category[] allCategories = Category.values();
+    
+    %>
+    
     <%!
     	boolean validateSession(HttpSession session)
     	{
@@ -108,11 +116,20 @@
         <h1 id="title">USC BUY AND SELL</h1>
         <form name="search_form" action="search" method="GET">
         	<select name="category" value="all">
-        	  <option value="all">All</option>
-        	  <option value="book">Book</option>
-        	  <option value="movie">Movie</option>
-        	  <option value="electronic">Electronic</option>
-        	  <option value="service">Service</option>
+        	<option value="all">All</option>
+        	<%
+        	for (int i = 0; i < allCategories.length; i++) {
+        		//formating the category names
+        		String catName = allCategories[i].toString();
+        		String firstLetter = catName.substring(0, 1).toUpperCase();
+        		String lastLetters = catName.substring(1).toLowerCase();
+        		catName = firstLetter+lastLetters;
+        		%>
+        		<option value=<%=catName %>><%=catName %></option>
+        		<%	
+        	}
+        	%>
+        	 
         	</select>
         	<input type="text" name="term" placeholder="Search for an item!">
         	<input type="submit" value="SEARCH">
