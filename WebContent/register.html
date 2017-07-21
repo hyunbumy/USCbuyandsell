@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>User Registration</title>
+	<link href="nav.css" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Cinzel" rel="stylesheet">
+	
+	
+	<style>
+		h1 {
+	    		text-align: center;
+		}
+		h2 {
+		    text-align: center;
+		}
+		h3 {text-align: center;} 	
+		h4 {text-align: center;}
+		h5 {text-align: left;}
+		h6 {text-align: center;}
+	</style>
+	
+	<style>
+			#outercontainer
+			{
+				margin-right: auto;
+				margin-left: auto;
+				background-color: white;
+			}
+	</style>
+</head>
+	<body>
+	
+		<div id="outercontainer">
+			<div id="nav">
+
+				<ul>
+					<li><a class="active" href="./homepage.html">Home</a></li>
+
+					<li><a href="#">Departments</a>
+						<ul>
+						    <li><a href="./dep1.html">Dep1</a></li>
+					      	<li><a href="./dep2.html">Dep2</a></li>
+					   	</ul>
+					</li>
+
+					<li><a href="#">Account</a>
+
+						<ul>
+							<li><a href="./wishlist">Profile</a></li>
+					        <li><a href="./wishlist">Wishlist</a></li>
+					        <li><a href="./inbox.html">Inbox</a></li>
+					    </ul>
+					</li>
+
+					<li style="float:right;"><a href="./logout.html">Log Out</a></li>
+					<div style="clear:both;"></div>
+
+				</ul>
+			</div>
+
+		</div> 
+	
+		<div>
+			<br><br>
+			<h3>Create Account</h3>
+			<h4>
+			<form name="registerform" action="/user_registed.html" method="POST" class="pure-form">
+				<fieldset>
+		  			Your Name: <br>
+		  			<input type="text" name="username" placeholder="name" required>
+		  			<br>
+		  			Profile Image: <br>
+		  			<input type="file" name="userprofileimage" accept="image" required >
+		  			<br>
+		  			USC email:<br>
+		  			<input type="email" name="useremail" placeholder="only @usc.edu emails" accept="@.usc.edu" required>
+		  			<br>
+		  			Phone Number:<br>
+		  			<input type="tel" name="useremail" placeholder="phone" required>
+		  			<br>
+					Password:<br>
+					<input type= "password" name="userpassword" id="userpassword" placeholder="Password" required >
+					<br>
+					Confirm Password:<br>
+					<input type= "password" name="confirm_password" id="confirm_password" placeholder="Confirm Password" required>
+					
+					
+					<script>
+					
+						var email
+					
+						var password = document.getElementById("userpassword")
+					 	 , confirm_password = document.getElementById("confirm_password");
+						function validatePassword() {
+							if(password.value != confirm_password.value) {
+							    confirm_password.setCustomValidity("Passwords Don't Match");
+							  } else {
+							    confirm_password.setCustomValidity('');
+							  }
+						}
+						
+						password.onchange = validatePassword;
+						confirm_password.onkeyup = validatePassword;
+						
+					</script>
+					
+					<br><br>
+					<input type="submit" name="submit" value= "Sign up!" onclick ="validatePassword()" class="pure-button pure-button-primary">
+					<br>
+				</fieldset>
+			</form> 
+			</h4>
+		
+		
+		</div>
+
+	</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2017 GitHub, Inc. Terms Privacy Security Status Help
