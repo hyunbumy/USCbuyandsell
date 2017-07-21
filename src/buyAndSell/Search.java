@@ -19,8 +19,10 @@ public class Search extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String searchTerm = request.getParameter("term");
 		String category = request.getParameter("category");
+		Store store = new Store();
+		request.getSession().setAttribute("store", store);
 		
-		String next = "/product.jsp";
+		String next = "/searchResults.jsp";
 
 		// Check the validity of the search
 		// If not, send back to the homepage with 
