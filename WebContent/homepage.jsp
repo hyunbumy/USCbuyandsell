@@ -82,9 +82,9 @@
         <script>
         	function getHeader(valid) {
         		if (valid)
-        			$("#login_header").load("logged_in_example_homepage.html");
+        			$("#login_header").load("logged_in.html");
         		else
-	        		$("#login_header").load("logged_out_example_homepage.html");
+	        		$("#login_header").load("logged_out.html");
         	}
         </script>
     </head>
