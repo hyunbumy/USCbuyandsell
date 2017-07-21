@@ -7,7 +7,7 @@
 	<head>
 		<%
 		Store store = (Store) request.getSession().getAttribute("store");
-		String searchTerm = (String) request.getSession().getAttribute("searchTerm");
+		String searchTerm = (String) request.getParameter("term");
 		Vector<Item> results = store.search(searchTerm);
 		%>
 	
