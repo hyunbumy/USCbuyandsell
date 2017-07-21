@@ -1,0 +1,129 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html class="no-js" lang="">
+    <head>
+    <%@ page import="buyAndSell.*"%>
+    <%!
+    	boolean validateSession(HttpSession session)
+    	{
+    		if (session.getAttribute("user") != null)
+    			return true;
+    		else
+    			return false;
+    	}
+    %>
+
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>USC Buy and Sell</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+        <!-- Place favicon.ico in the root directory -->
+
+        <!-- Link stylesheets-->
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link href="css/nav.css" rel="stylesheet" type="text/css">
+		<link href="https://fonts.googleapis.com/css?family=Cinzel" rel="stylesheet">
+        
+        <!-- Load js files-->
+        <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+        <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.12.0.min.js"><\/script>')</script>
+        <script src="js/plugins.js"></script>
+        <script src="js/main.js"></script>
+        <style>			
+        	#main
+        	{
+        		position:fixed;
+        		top:40%;
+        		left:50%;
+        		transform:translate(-50%,-50%);
+        	}
+        	
+        	#title
+        	{
+        		color:#bd2031;
+        		font-size:100px;
+        		margin:0px;
+        	}
+        	
+        	input[type=text]
+        	{
+        		width:73%;
+        		height:100%;
+        		font-size:30px;
+        		border: 1px solid;
+        		border-radius:4px;
+        		box-sizing:border-box;
+        	}
+        	input[type=submit]
+        	{
+        		width:10%;
+        		height:100%;
+        		background-color: #FFDF00;
+        		color:black;
+        		border-radius:4px;
+        		cursor:pointer;
+        	}
+        	select
+        	{
+        		width:15%;
+        		border-radisu:4px;
+        		height:100%;
+        		border: 1px solid;
+        		box-sizing:border-box;
+        	}
+        </style>
+        
+        <script>
+        	function getHeader(valid) {
+        		if (valid)
+        			$("#login_header").load("logged_in_example_homepage.html");
+        		else
+	        		$("#login_header").load("logged_out_example_homepage.html");
+        	}
+        </script>
+    </head>
+    
+    <%if (validateSession(session)) {%>
+    <body onload="getHeader(true)">
+    <%}
+    else {
+    %>
+    <body onload="getHeader(false)">
+    <%} %>
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- Add your site or application content here -->
+       
+        <div id="login_header"></div>
+        
+        <div id="main">
+        <h1 id="title">USC BUY AND SELL</h1>
+        <form name="search_form" action="search" action="GET">
+        	<select name="category" value="all">
+        	  <option value="all">All</option>
+        	  <option value="book">Book</option>
+        	  <option value="movie">Movie</option>
+        	  <option value="electronic">Electronic</option>
+        	  <option value="service">Service</option>
+        	</select>
+        	<input type="text" name="term" placeholder="Search for an item!">
+        	<input type="submit" value="SEARCH">
+        </form>
+        </div>
+
+        <script>
+        	$(function() {
+        		// jQuerymethods here
+        		
+        	})
+        </script>
+    </body>
+</html>
