@@ -1,13 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    <%@ page import="buyAndSell.*"%>
+<%@ page import="buyAndSell.*"%>
+<%@ page import="java.util.Vector"%>
+<%@ page import="java.util.HashMap"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html class="no-js" lang="">
     <head>
 
     
     <%
-    Store store = (Store) request.getSession().getAttribute("store");
+    Store s = new Store();
+    request.getSession().setAttribute("store", s);
+	User u = new User("Brandon", "Holden", "bholden@usc.edu", "978-257-5700", "bholden", "password");
+	
+	s.setCurrUser(u);
+	
+	
+	Item car = new Item("My awesome first car", 10000.99, Category.ELECTRONIC, 1, u);
+	Item tv = new Item("really awesome tv", 111.93, Category.ELECTRONIC, 1, u);
+	Store.sellItem(car);
+	Store.sellItem(tv);
+	
     Category[] allCategories = Category.values();
     
     %>
