@@ -1,10 +1,10 @@
-     body
-      {
-        padding: 0;
-        margin: 0;
-      }
-
-
+      #outercontainer
+	  {
+		margin-right: auto;
+		margin-left: auto;
+		background-color: white;
+	  }
+      
       #nav 
       { 
         font-family: Garamond;
@@ -68,11 +68,11 @@
       #nav li a.active 
       {
           color: white;
-          background-color: #4CAF50;
+          background-color: #FFDF00;
       }
 
       #nav li a.active:hover
       {
           color: white;
-          background-color: #439846;
+          background-color: #FFDF00;
       }
