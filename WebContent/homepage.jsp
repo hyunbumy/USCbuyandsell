@@ -106,7 +106,7 @@
         
         <div id="main">
         <h1 id="title">USC BUY AND SELL</h1>
-        <form name="search_form" action="search" action="GET">
+        <form name="search_form" action="search" method="GET">
         	<select name="category" value="all">
         	  <option value="all">All</option>
         	  <option value="book">Book</option>
@@ -116,8 +116,14 @@
         	</select>
         	<input type="text" name="term" placeholder="Search for an item!">
         	<input type="submit" value="SEARCH">
-        </form>
+        </form><br/>
         </div>
+        <%
+        	if (request.getAttribute("error") != null && 
+        		!request.getAttribute("error").equals("")) {
+        %>
+        <span style="color:red;"><%=request.getAttribute("error") %></span>
+        <%} %>
 
         <script>
         	$(function() {
