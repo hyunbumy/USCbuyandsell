@@ -13,7 +13,7 @@
     			return false;
     	}
     %>
-
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <title>USC Buy and Sell</title>
@@ -117,13 +117,13 @@
         	<input type="text" name="term" placeholder="Search for an item!">
         	<input type="submit" value="SEARCH">
         </form><br/>
-        </div>
         <%
         	if (request.getAttribute("error") != null && 
         		!request.getAttribute("error").equals("")) {
         %>
         <span style="color:red;"><%=request.getAttribute("error") %></span>
         <%} %>
+        </div>
 
         <script>
         	$(function() {
