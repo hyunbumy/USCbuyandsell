@@ -5,6 +5,16 @@ import java.util.Vector;
 
 public class Store {
 	
+	//will be in the database later on
+	static HashMap<String,String> passwordMap; //key = username, value = password
+	static HashMap<String,User> userMap; //key = username, value = User
+	static Vector<Item> allItems;
+	static HashMap<String,Vector<Item>> keywordMap; //key = keyword, value = vector of Items matching
+	
+	//null if the guest isn't logged in, set when they are
+	private static User currUser;
+	
+	
 	//for running as a java application in testing
 	public static void main(String[] args) {
 		
@@ -22,36 +32,13 @@ public class Store {
 		Item tv = new Item("really awesome tv", 111.93, Category.ELECTRONIC, 1, u);
 		sellItem(car);
 		sellItem(tv);
-		
-		//go through keywords and items associated with it
-		for (String keyword: keywordMap.keySet()) {
-			System.out.println(keyword);
-			Vector<Item> items = keywordMap.get(keyword);
-			if (!(items.isEmpty())) {
-				System.out.println("\tItems:");
-			}
-			for (int i = 0; i < items.size(); i++) {
-				System.out.println("\t\t"+items.get(i).getName());
-			}
-		}
-		
 	}
-	
-	//will be in the database later on
-	private static HashMap<String,String> passwordMap; //key = username, value = password
-	private static HashMap<String,User> userMap; //key = username, value = User
-	private static Vector<Item> allItems;
-	private static HashMap<String,Vector<Item>> keywordMap; //key = keyword, value = vector of Items matching
-	
-	//null if the guest isn't logged in, set when they are
-	private static User currUser; 
-	
-	
+		
 	public Store(){
-		this.passwordMap = new HashMap<String,String>(); 
-		this.userMap = new HashMap<String,User>(); 
-		this.keywordMap = new HashMap<String,Vector<Item>>();
-		this.allItems = new Vector<Item>();
+		Store.passwordMap = new HashMap<String,String>(); 
+		Store.userMap = new HashMap<String,User>(); 
+		Store.keywordMap = new HashMap<String,Vector<Item>>();
+		Store.allItems = new Vector<Item>();
 		setCurrUser(null);
 	}
 	
@@ -131,7 +118,6 @@ public class Store {
 		//get keywords from the title and description
 		String name = item.getName();
 		String description = item.getDescription();
-		String[] nameKeywords = name.split(" ");
 		
 		
 		//KEY NEEDS TO BE LOWERCASE TO MATCH SEARCH
@@ -174,61 +160,19 @@ public class Store {
 				}
 			}
 		}
-
-		
-		
-		
-		
-		
-//		//add the items to the keywordMap based on keyword 
-//		for (int i = 0; i < nameKeywords.length; i++) {
-//			String keyword = nameKeywords[i].toLowerCase();
-//			//see if keyword is in the map
-//			if (keywordMap.containsKey(keyword)) {
-//				Vector<Item> currentItems = keywordMap.get(keyword);
-//				currentItems.add(item);
-//				keywordMap.put(keyword, currentItems);
-//			}
-//			else {
-//				Vector<Item> newItems = new Vector<Item>();
-//				newItems.add(item);
-//				keywordMap.put(keyword, newItems);
-//			}
-//		}
-//		
-//		//if there is no description- return
-//		if (item.getDescription() == null) {
-//			return;
-//		}
-//		
-//		String[] descrptionKeywords = description.split(" ");
-//		
-//		for (int i = 0; i < descrptionKeywords.length; i++) {
-//			String keyword = descrptionKeywords[i].toLowerCase();
-//			//see if keyword is in the map
-//			if (keywordMap.containsKey(keyword)) {
-//				Vector<Item> currentItems = keywordMap.get(keyword);
-//				currentItems.add(item);
-//				keywordMap.put(keyword, currentItems);
-//			}
-//			else {
-//				Vector<Item> newItems = new Vector<Item>();
-//				newItems.add(item);
-//				keywordMap.put(keyword, newItems);
-//			}
-//		}
-		
 		
 	}
 	
 	
 	//search terms must be converted to lower case
-	public Vector<Item> search(Vector<String> searchTerms) {
+	public Vector<Item> search(String searchTerm) {
 		Vector<Item> results = new Vector<Item>();
 		
+		String[] searchTerms = searchTerm.split(" ");
+		
 		//go through all search terms, get all items associated w/keyword, add those to results
-		for (int i = 0; i < searchTerms.size(); i++) {
-			String term = searchTerms.get(i).toLowerCase();
+		for (int i = 0; i < searchTerms.length; i++) {
+			String term = searchTerms[i].toLowerCase();
 			if (keywordMap.containsKey(term)) {
 				Vector<Item> items = keywordMap.get(term);
 				for (int j = 0; j < items.size(); j++) {
@@ -241,10 +185,7 @@ public class Store {
 		return results;
 	}
 	
-	
-	
-	
-	
+
 	
 	
 	/*
@@ -257,6 +198,38 @@ public class Store {
 
 	public void setCurrUser(User currUser) {
 		this.currUser = currUser;
+	}
+	
+	public static HashMap<String, String> getPasswordMap() {
+		return passwordMap;
+	}
+
+	public static void setPasswordMap(HashMap<String, String> passwordMap) {
+		Store.passwordMap = passwordMap;
+	}
+
+	public static HashMap<String, User> getUserMap() {
+		return userMap;
+	}
+
+	public static void setUserMap(HashMap<String, User> userMap) {
+		Store.userMap = userMap;
+	}
+
+	public static Vector<Item> getAllItems() {
+		return allItems;
+	}
+
+	public static void setAllItems(Vector<Item> allItems) {
+		Store.allItems = allItems;
+	}
+
+	public static HashMap<String, Vector<Item>> getKeywordMap() {
+		return keywordMap;
+	}
+
+	public static void setKeywordMap(HashMap<String, Vector<Item>> keywordMap) {
+		Store.keywordMap = keywordMap;
 	}
 
 
