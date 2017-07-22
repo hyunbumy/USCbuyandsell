@@ -7,7 +7,7 @@
 <html class="no-js" lang="">
     <head>
 
-    
+    <!--------------FOR TESTING---------------------->
     <%
     Store s = new Store();
     request.getSession().setAttribute("store", s);
@@ -24,7 +24,7 @@
     Category[] allCategories = Category.values();
     
     %>
-    
+  	<!----------------FOR TESTING------------->
     <%!
     	boolean validateSession(HttpSession session)
     	{
