@@ -21,31 +21,31 @@ public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String next = "/homepage.jsp";
+		Store s = (Store) request.getSession().getAttribute("store");
+		
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		// Hash the password using SHA256
-		String hashedPass = Hashing.sha256().
-				hashString(password, StandardCharsets.UTF_8).toString();
 		
-		// TODO: Check the DB for username and HASHED password
-		boolean isRegistered = true;
-		// If present, instantiate a User based on the info on DB
-		// Then pass in the User object to the session then go to main page
-		if (isRegistered) {
-			// TEST
-			User currUser = new User("Brad", "TYang", "didasdf@usc.edu","000-000-0000", username, hashedPass);
-			HttpSession session = request.getSession();
-			session.setAttribute("currUser", currUser);
-			RequestDispatcher dispatch = request.getServletContext().getRequestDispatcher("/homepage.jsp");
-			dispatch.forward(request, response);
+		// Hash the password using SHA256
+//		String hashedPass = Hashing.sha256().
+//				hashString(password, StandardCharsets.UTF_8).toString();
+		
+		
+		//can log in
+		if (Store.login(username, password)) {
+			//get the rest of the user's info via the database
+			User u = new User("firstName", "lastName", "email", "phoneNum", username, password);
 		}
 		
-		// If not present, stay on Login and display error
+		//can't log in- either don't exist in the system or incorrect password
 		else {
 			request.setAttribute("error", "User does not exist");
-			RequestDispatcher dispatch = request.getServletContext().getRequestDispatcher("/login.jsp");
-			dispatch.forward(request, response);
 		}
+		
+		RequestDispatcher dispatch = request.getServletContext().getRequestDispatcher(next);
+		dispatch.forward(request, response);
 		
 	}
 

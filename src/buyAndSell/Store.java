@@ -12,27 +12,8 @@ public class Store {
 	static HashMap<String,Vector<Item>> keywordMap; //key = keyword, value = vector of Items matching
 	
 	//null if the guest isn't logged in, set when they are
+	//I THINK THIS WILL BECOME THE PRIMARY KEY IN THE DATABASE
 	private static User currUser;
-	
-	
-	//for running as a java application in testing
-	public static void main(String[] args) {
-		
-		Store s = new Store();
-		User u = new User("Brandon", "Holden", "bholden@usc.edu", "978-257-5700", "bholden", "password");
-		
-		s.setCurrUser(u);
-
-		//add the the maps I have
-		passwordMap.put("bholden", "password");
-		userMap.put("bholden", u);
-		
-		
-		Item car = new Item("My awesome first car", 10000.99, Category.ELECTRONIC, 1, u);
-		Item tv = new Item("really awesome tv", 111.93, Category.ELECTRONIC, 1, u);
-		sellItem(car);
-		sellItem(tv);
-	}
 		
 	public Store(){
 		Store.passwordMap = new HashMap<String,String>(); 
@@ -42,19 +23,28 @@ public class Store {
 		setCurrUser(null);
 	}
 	
-	//return boolean of success or failure
-	public boolean login(String username, String password) {
+	
+	//return boolean of success or failure- just query the database with usernames/passwords/uid
+	public static boolean login(String username, String password) {
 		//get the password via the username
+		System.out.println(passwordMap.size());
+		System.out.println("login username: " + username);
+		System.out.println("login password: " + password);
 		String pword = passwordMap.get(username);
 		if (pword == null) {
+			System.out.println("pword null");
 			return false;
 		}
+		
+		System.out.println("pword in map");
 		
 		//make sure the password they gave equals the one we have stored
 		if (pword.equals(password)) {
 			setCurrUser(userMap.get(username));
 			return true;
 		}
+		
+		System.out.println("no user");
 		
 		//failure
 		return false;
@@ -69,6 +59,7 @@ public class Store {
 		}
 		
 		User u = new User(fName, lName, email, phoneNum, username, password);
+		passwordMap.put(username, password);
 		currUser = u;
 		return true;
 	}
@@ -119,14 +110,24 @@ public class Store {
 		String name = item.getName();
 		String description = item.getDescription();
 		
+		//parse the name and optional description
+		parseStringAndAddToKeywords(name, item);
+		parseStringAndAddToKeywords(description, item);
 		
+	}
+	
+	private static void parseStringAndAddToKeywords(String toParse, Item item) {
 		//KEY NEEDS TO BE LOWERCASE TO MATCH SEARCH
+		
+		if (toParse == null) {
+			return;
+		}
 		
 		//go through the name, make keyword strings splitting at every non-alpha char, add to map
 		String keyword = "";
-		for (int i = 0; i < name.length(); i++) {	
-			if (Character.isLetter(name.charAt(i))) {
-				keyword += name.charAt(i);
+		for (int i = 0; i < toParse.length(); i++) {	
+			if (Character.isLetter(toParse.charAt(i))) {
+				keyword += toParse.charAt(i);
 			}
 			else {
 				keyword = keyword.toLowerCase();
@@ -145,7 +146,7 @@ public class Store {
 			}
 			
 			//not recognizing the newline character- manual override to add it
-			if (i == name.length()-1) {
+			if (i == toParse.length()-1) {
 				keyword = keyword.toLowerCase();
 				//see if keyword is in the map
 				if (keywordMap.containsKey(keyword)) {
@@ -160,12 +161,11 @@ public class Store {
 				}
 			}
 		}
-		
 	}
 	
 	
 	//search terms must be converted to lower case
-	public Vector<Item> search(String searchTerm) {
+	public static Vector<Item> search(String searchTerm) {
 		Vector<Item> results = new Vector<Item>();
 		
 		String[] searchTerms = searchTerm.split(" ");
@@ -196,8 +196,8 @@ public class Store {
 		return currUser;
 	}
 
-	public void setCurrUser(User currUser) {
-		this.currUser = currUser;
+	public static void setCurrUser(User currUser) {
+		Store.currUser = currUser;
 	}
 	
 	public static HashMap<String, String> getPasswordMap() {

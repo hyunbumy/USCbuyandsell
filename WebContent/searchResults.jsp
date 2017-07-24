@@ -7,13 +7,11 @@
 	<head>
 		<%
 		Store store = (Store) request.getSession().getAttribute("store");
-		String searchTerm = (String) request.getParameter("term");
+		String searchTerm = (String) request.getSession().getAttribute("searchTerm");
 		Vector<Item> results = store.search(searchTerm);
 		%>
-	
-	
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>Insert title here</title>
+		<title>Search Results for "<%=searchTerm %>"</title>
 	</head>
 	<body>
 		<!-- DISPLAY SEARCH RESULTS -->

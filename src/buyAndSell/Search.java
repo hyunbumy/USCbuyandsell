@@ -17,25 +17,25 @@ public class Search extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		String searchTerm = request.getParameter("term");
 		String category = request.getParameter("category");
-		Store store = new Store();
-		request.getSession().setAttribute("store", store);
 		
 		String next = "/searchResults.jsp";
 
 		// Check the validity of the search
-		// If not, send back to the homepage with 
-		if (searchTerm == null || searchTerm.equals(""))
-		{
+		// If not, send back to the home page with 
+		if (searchTerm == null || searchTerm.equals("")) {
 			// Get the url of the previous page
 			//next = request.getHeader("referer").split("USCbuyandsell")[1];
 			next = "/homepage.jsp";
 			request.setAttribute("error", "Please enter a search term");
 		}
+		else {
+			request.getSession().setAttribute("searchTerm", searchTerm);
+		}
 		
-		//TODO: Parse search terms and category and pass the data to populate the next page
-		
+
 		// Forward to the appropriate page
 		RequestDispatcher dispatch = request.getServletContext().getRequestDispatcher(next);
 		dispatch.forward(request, response);
