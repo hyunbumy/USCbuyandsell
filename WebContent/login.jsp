@@ -49,7 +49,9 @@
 				Password:<br/>
 				<input type="text" name="password" placeholder="Eneter your password" required><br/>
 				<input type="submit" value="Log In">
-				<button type="button" onclick="location.href='register.jsp'">Register</button>
+				<button type="submit" onclick="location.href='register.jsp'">Register</button>
+				
+				
 			</form><br/>
 			<%
 			  if (request.getAttribute("error") != null) {
