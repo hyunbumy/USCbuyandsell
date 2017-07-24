@@ -14,7 +14,7 @@
     
     Store s = new Store();
     request.getSession().setAttribute("store", s);
-    s.createUser("Brandon", "Holden", "bholden@usc.edu", "978-257-5700", "bholden", "password");
+    Store.createUser("Brandon", "Holden", "bholden@usc.edu", "978-257-5700", "bholden", "password");
 	
 	
 	

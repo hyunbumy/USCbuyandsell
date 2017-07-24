@@ -47,7 +47,7 @@ public class Store {
 	}
 	
 	//return boolean of success or failure
-	public boolean createUser(String fName, String lName, String email, String phoneNum, String username, String password) {
+	public static boolean createUser(String fName, String lName, String email, String phoneNum, String username, String password) {
 		//user already exists
 		if (passwordMap.containsKey(password)) {
 			return false;
