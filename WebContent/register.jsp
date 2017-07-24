@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<%@ page import="buyAndSell
+.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html class="no-js" lang="">
 <head>
-<%@ page import="buyAndSell.*"%>
-  
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -59,10 +59,16 @@
 		<div>
 			<br><br><br/>
 			<h3>Create Account</h3>
-			<form id="reg_form" name="registerform" action="register_user" method="POST" class="pure-form">
+			<form id="reg_form" name="registerform" action="register" method="POST" class="pure-form">
 				<fieldset>
-		  			Your Name: <br>
-		  			<input type="text" name="username" placeholder="name" required>
+		  			Your First Name: <br>
+		  			<input type="text" name="fname" placeholder="First Name" required>
+		  			<br>
+		  			Your Last Name: <br>
+		  			<input type="text" name="lname" placeholder="Last Name" required>
+		  			<br>
+		  			Your Username: <br>
+		  			<input type="text" name="username" placeholder="Username" required>
 		  			<br>
 		  			Profile Image: <br>
 		  			<input type="file" name="userprofileimage" accept="image" required >
@@ -71,7 +77,7 @@
 		  			<input type="email" name="useremail" placeholder="only @usc.edu emails" accept="@.usc.edu" required>
 		  			<br>
 		  			Phone Number:<br>
-		  			<input type="tel" name="useremail" placeholder="phone" required>
+		  			<input type="tel" name="phonenum" placeholder="phone" required>
 		  			<br>
 					Password:<br>
 					<input type= "password" name="userpassword" id="userpassword" placeholder="Password" required >

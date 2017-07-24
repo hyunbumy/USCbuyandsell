@@ -27,24 +27,19 @@ public class Store {
 	//return boolean of success or failure- just query the database with usernames/passwords/uid
 	public static boolean login(String username, String password) {
 		//get the password via the username
-		System.out.println(passwordMap.size());
-		System.out.println("login username: " + username);
-		System.out.println("login password: " + password);
+
 		String pword = passwordMap.get(username);
 		if (pword == null) {
-			System.out.println("pword null");
+
 			return false;
 		}
 		
-		System.out.println("pword in map");
 		
 		//make sure the password they gave equals the one we have stored
 		if (pword.equals(password)) {
 			setCurrUser(userMap.get(username));
 			return true;
 		}
-		
-		System.out.println("no user");
 		
 		//failure
 		return false;
