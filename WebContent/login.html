@@ -28,6 +28,11 @@
         	function getHeader() {
         		$("#header").load("logged_out_loginpage.html");
         	}
+        	// TODO: validate and show error message
+        	function validateLogin() {
+        		$("")
+        		
+        	}
         </script>
         
         <style>
@@ -41,14 +46,15 @@
 		<br/><br/><br/>
 		
 		<div id="main">
-			<form name="login" action="login" method="POST">
+			<form name="login" action="login" method="GET">
 				Username:<br/>
-				<input type="text" name="username" placeholder="Enter your username"><br/>
+				<input type="text" name="username" placeholder="Enter your username" required><br/>
 				Password:<br/>
-				<input type="text" name="password" placeholder="Eneter your password"><br/>
+				<input type="text" name="password" placeholder="Eneter your password" required><br/>
 				<input type="submit" value="Log In">
 				<button type="button" onclick="location.href='register.jsp'">Register</button>
-			</form>
+			</form><br/>
+			<div id="error"></div>			
 		</div>
 		
 	</body>
