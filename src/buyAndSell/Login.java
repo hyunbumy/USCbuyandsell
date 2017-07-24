@@ -42,7 +42,9 @@ public class Login extends HttpServlet {
 		
 		// If not present, stay on Login and display error
 		else {
-			
+			request.setAttribute("error", "User does not exist");
+			RequestDispatcher dispatch = request.getServletContext().getRequestDispatcher("/login.jsp");
+			dispatch.forward(request, response);
 		}
 		
 	}

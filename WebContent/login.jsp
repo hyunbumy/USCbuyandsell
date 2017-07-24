@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html class="no-js" lang="">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -28,11 +30,6 @@
         	function getHeader() {
         		$("#header").load("logged_out_loginpage.html");
         	}
-        	// TODO: validate and show error message
-        	function validateLogin() {
-        		$("")
-        		
-        	}
         </script>
         
         <style>
@@ -54,7 +51,11 @@
 				<input type="submit" value="Log In">
 				<button type="button" onclick="location.href='register.jsp'">Register</button>
 			</form><br/>
-			<div id="error"></div>			
+			<%
+			  if (request.getAttribute("error") != null) {
+			%>
+			<%=request.getAttribute("error") %>
+			<%} %>
 		</div>
 		
 	</body>
