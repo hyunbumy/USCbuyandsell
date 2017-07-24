@@ -28,7 +28,7 @@
     <%!
     	boolean validateSession(HttpSession session)
     	{
-    		if (session.getAttribute("user") != null)
+    		if (session.getAttribute("currUser") != null)
     			return true;
     		else
     			return false;
