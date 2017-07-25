@@ -47,9 +47,9 @@
 				Username:<br/>
 				<input type="text" name="username" placeholder="Enter your username" required><br/>
 				Password:<br/>
-				<input type="text" name="password" placeholder="Eneter your password" required><br/>
+				<input type="password" name="password" placeholder="Eneter your password" required><br/>
 				<input type="submit" value="Log In">
-				<button type="submit" onclick="location.href='register.jsp'">Register</button>
+				<button type="button" onclick="location.href='register.jsp'">Register</button>
 				
 				
 			</form><br/>

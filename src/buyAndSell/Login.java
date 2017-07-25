@@ -26,12 +26,7 @@ public class Login extends HttpServlet {
 		Store s = (Store) request.getSession().getAttribute("store");
 		
 		String username = request.getParameter("username");
-		String password = request.getParameter("password");
-		
-		// Hash the password using SHA256
-//		String hashedPass = Hashing.sha256().
-//				hashString(password, StandardCharsets.UTF_8).toString();
-		
+		String password = request.getParameter("password");		
 		
 		//can log in
 		if (Store.login(username, password)) {

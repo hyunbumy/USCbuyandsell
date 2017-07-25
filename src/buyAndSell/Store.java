@@ -1,7 +1,10 @@
 package buyAndSell;
 
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Vector;
+
+import com.google.common.hash.Hashing;
 
 public class Store {
 	
@@ -14,15 +17,17 @@ public class Store {
 	//null if the guest isn't logged in, set when they are
 	//I THINK THIS WILL BECOME THE PRIMARY KEY IN THE DATABASE
 	private static User currUser;
+	// Alternative - probably PRIMARY KEY
+	private static int currUserId;
 		
 	public Store(){
 		Store.passwordMap = new HashMap<String,String>(); 
 		Store.userMap = new HashMap<String,User>(); 
 		Store.keywordMap = new HashMap<String,Vector<Item>>();
 		Store.allItems = new Vector<Item>();
+		currUserId = -1;
 		setCurrUser(null);
 	}
-	
 	
 	//return boolean of success or failure- just query the database with usernames/passwords/uid
 	public static boolean login(String username, String password) {
@@ -36,6 +41,9 @@ public class Store {
 		
 		
 		//make sure the password they gave equals the one we have stored
+		// Hash the password using SHA256 and salt
+		password = Hashing.sha256().
+				hashString(password+"salt", StandardCharsets.UTF_8).toString();
 		if (pword.equals(password)) {
 			setCurrUser(userMap.get(username));
 			return true;
@@ -49,6 +57,9 @@ public class Store {
 	//return boolean of success or failure
 	public static boolean createUser(String fName, String lName, String email, String phoneNum, String username, String password) {
 		//user already exists
+		// Use hashing with salt for password when creating a new user
+		password = Hashing.sha256().
+				hashString(password+"salt", StandardCharsets.UTF_8).toString();
 		if (passwordMap.containsKey(password)) {
 			return false;
 		}
@@ -195,6 +206,12 @@ public class Store {
 		Store.currUser = currUser;
 	}
 	
+	public static int getCurrUserId() {
+		return currUserId;
+	}
+	public static void setCurrUserId(int id) {
+		Store.currUserId = id;
+	}
 	public static HashMap<String, String> getPasswordMap() {
 		return passwordMap;
 	}
