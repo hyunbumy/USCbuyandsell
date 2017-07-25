@@ -28,7 +28,7 @@ public class Search extends HttpServlet {
 		if (searchTerm == null || searchTerm.equals("")) {
 			// Get the url of the previous page
 			//next = request.getHeader("referer").split("USCbuyandsell")[1];
-			next = "/homepage.jsp";
+			next = "/index.jsp";
 			request.setAttribute("error", "Please enter a search term");
 		}
 		else {

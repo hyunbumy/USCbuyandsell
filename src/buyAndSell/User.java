@@ -7,23 +7,22 @@ public class User extends Guest {
 	private String fName;
 	private String lName;
 	private String username;
-	private String password; //storing this here for now- make sure to delete
 	private String email;
 	private float rating;
 	private String image;
-	private String uniqueID;
+	private int uniqueID;
 	private String phoneNumber;
 	private Vector<Item> itemsSelling;
 	private Vector<Item> wishlist;
 	private Vector<Message> messages;
 	
-	public User(String fName, String lName, String email, String phoneNum, String username, String password) {
+	public User(String fName, String lName, String email, String phoneNum, String username, int id) {
 		this.fName = fName;
 		this.lName = lName;
 		this.email = email;
 		this.phoneNumber = phoneNum;
 		this.username = username;
-		this.password = password;
+		this.uniqueID = id;
 		
 		this.wishlist = new Vector<Item>();
 		this.messages = new Vector<Message>();
@@ -114,17 +113,8 @@ public class User extends Guest {
 		return username;
 	}
 
-
 	public void setUsername(String username) {
 		this.username = username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 	public Vector<Item> getItemsSelling() {
@@ -136,13 +126,13 @@ public class User extends Guest {
 	}
 
 
-	public String getUniqueID() {
+	public int getUniqueId() {
 		return uniqueID;
 	}
 
 
-	public void setUniqueID(String uniqueID) {
-		this.uniqueID = uniqueID;
+	public void setUniqueId(int id) {
+		this.uniqueID = id;
 	}
 	
 	

@@ -6,7 +6,7 @@
 <html>
 	<head>
 		<%
-		Store store = (Store) request.getSession().getAttribute("store");
+		StoreDatabase store = (StoreDatabase) request.getSession().getAttribute("store");
 		String searchTerm = (String) request.getSession().getAttribute("searchTerm");
 		Vector<Item> results = store.search(searchTerm);
 		%>
