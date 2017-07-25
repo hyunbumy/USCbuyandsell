@@ -26,7 +26,7 @@ public class StoreDatabase {
 		//establish database connection
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/USCbuyandsell?user=root&password=root");
+			Connection conn = DriverManager.getConnection("jdbc:mysql://buyandselldb.cphsc4421sco.us-east-2.rds.amazonaws.com/USCbuyandsell?user=root&password=uscbuyandsell");
 			Statement st = conn.createStatement();
 			System.out.println(st);
 			return st;
