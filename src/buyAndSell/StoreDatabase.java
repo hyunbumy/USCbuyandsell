@@ -35,8 +35,10 @@ public class StoreDatabase {
 		password = Hashing.sha256().
 				hashString(password+"salt", StandardCharsets.UTF_8).toString();
 		
-		
-		
+		//make sure username doesn't already exist, if so, return false
+		//store the current userID- use that to create getPhoneNum() methods etc. 
+		//OR store the ResultSet and use that to get the values to not query
+		//OR instantiate a User object and use those methods and create a saveUser method
 		
 		
 		//failure
@@ -55,7 +57,7 @@ public class StoreDatabase {
 				hashString(password+"salt", StandardCharsets.UTF_8).toString();
 		
 		//check to see if they exist in the UserTable, if not, add them
-		
+		//if they do, return false for an error message
 		
 		
 		return true;
