@@ -33,6 +33,18 @@ CREATE TABLE ItemsTable (
 
 );	
 
+
+CREATE TABLE KeywordTable (
+	
+	keyword VARCHAR(20) NOT NULL,
+    itemID INT(6) NOT NULL,
+    
+    -- itemID from ItemsTable 
+	FOREIGN KEY fk1(itemID) REFERENCES ItemsTable(itemID)
+
+);
+
+
 CREATE TABLE WishlistTable(
 	
     wishingUser INT(5) NOT NULL,
@@ -52,5 +64,8 @@ INSERT INTO ItemsTable(sellingUser, title, price, category, quantity)
 	VALUES (1, '3 piece suit', 99.99, 'clothes', 1), 
 					(1, 'USC tie', 10, 'clothes', 5),
                     (2, '5% in 201 grade', 999.99, 'idk', 1);
+                    
+
+
                     
                     
