@@ -11,26 +11,26 @@ public class User extends Guest {
 	private String email;
 	private float rating;
 	private String image;
-	private String uniqueID;
+	private int userID;
 	private String phoneNumber;
 	private Vector<Item> itemsSelling;
 	private Vector<Item> wishlist;
 	private Vector<Message> messages;
 	
-	public User(String fName, String lName, String email, String phoneNum, String username, String password) {
+	public User(String fName, String lName, String email, String phoneNum, String username, String password, int userID) {
 		this.fName = fName;
 		this.lName = lName;
 		this.email = email;
 		this.phoneNumber = phoneNum;
 		this.username = username;
 		this.password = password;
+		this.userID = userID;
 		
 		this.wishlist = new Vector<Item>();
 		this.messages = new Vector<Message>();
 		this.itemsSelling = new Vector<Item>();
 	}
-	
-	
+		
 	
 	//to be called when an item is sold
 	public void itemSold(Item item) {
@@ -136,13 +136,12 @@ public class User extends Guest {
 	}
 
 
-	public String getUniqueID() {
-		return uniqueID;
+	public int getUserID() {
+		return userID;
 	}
-
-
-	public void setUniqueID(String uniqueID) {
-		this.uniqueID = uniqueID;
+	
+	public void setUserID(int userID) {
+		this.userID = userID;
 	}
 	
 	

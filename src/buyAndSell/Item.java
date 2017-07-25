@@ -8,7 +8,7 @@ public class Item {
 	private Category category;
 	private int quantity;
 	private double price;
-	private String sellerID; // map/database ID that we assign to every user 
+	private int sellerID; // map/database ID that we assign to every user 
 	private String description;
 	private String uniqueID;
 	
@@ -17,7 +17,7 @@ public class Item {
 		this.price = d;
 		this.category = category;
 		this.quantity = quantity;
-		this.sellerID = sellingUser.getUniqueID();
+		this.sellerID = sellingUser.getUserID();
 	}
 		
 	
@@ -57,11 +57,11 @@ public class Item {
 		this.price = price;
 	}
 
-	public String getSellerID() {
+	public int getSellerID() {
 		return sellerID;
 	}
 
-	public void setSellerID(String sellerID) {
+	public void setSellerID(int sellerID) {
 		this.sellerID = sellerID;
 	}
 
