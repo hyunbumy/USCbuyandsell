@@ -31,7 +31,7 @@ public class Login extends HttpServlet {
 		//can log in
 		if (Store.login(username, password)) {
 			//get the rest of the user's info via the database
-			User u = new User("firstName", "lastName", "email", "phoneNum", username, password);
+			//User u = new User("firstName", "lastName", "email", "phoneNum", username, password);
 		}
 		
 		//can't log in- either don't exist in the system or incorrect password
