@@ -51,13 +51,15 @@ public class StoreDatabase {
 		ResultSet rs;
 		System.out.println(st);
 		try {
-			rs = st.executeQuery("SELECT userID FROM UserTable WHERE "
+			rs = st.executeQuery("SELECT * FROM UserTable WHERE "
 					+ "uname=\'"+username+"\' AND pword=\'"+password+"\';");
 			// There should be either one or no result row
 			if(rs.next()) {
 				System.out.println(rs.getInt("userID"));
 				// If true, there was a match, therefore correct login
 				currUserId = rs.getInt("userID");
+				currUser = new User(rs.getString("fname"), rs.getString("lname"), rs.getString("email"), rs.getString("phoneNum"),
+						rs.getString("uname"), currUserId);
 				System.out.println(rs.getInt("userID"));
 				return true;
 			}
@@ -82,9 +84,8 @@ public class StoreDatabase {
 	public static boolean createUser(String fName, String lName, String email, 
 			String phoneNum, String username, String password, String image) {
 		
-		
-		
 		// Use hashing with salt for password when creating a new user
+		String temp = password;
 		password = Hashing.sha256().
 				hashString(password+"salt", StandardCharsets.UTF_8).toString();
 		
@@ -102,6 +103,7 @@ public class StoreDatabase {
 				query += "\'"+lName+"\',\'"+email+"\',\'"+phoneNum+"\',\'"+image+"\');";
 				System.out.println(query);
 				System.out.println(st.executeUpdate(query));
+				login(username, temp);
 				return true;
 			}
 		} catch (SQLException e) {
