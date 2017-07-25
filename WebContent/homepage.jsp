@@ -14,7 +14,7 @@
     
     Store s = new Store();
     request.getSession().setAttribute("store", s);
-    Store.createUser("Brandon", "Holden", "bholden@usc.edu", "978-257-5700", "bholden", "password");
+    Store.createUser("Brandon", "Holden", "bholden@usc.edu", "978-257-5700", "bholden", "password", "nil");
 	
 	
 	
@@ -30,7 +30,7 @@
     <%!
     	boolean validateSession(Store store)
     	{
-    		if (store.getCurrUserId() != -1)
+    		if (store.getCurrUser() != null)
     			return true;
     		else
     			return false;

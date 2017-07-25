@@ -15,13 +15,13 @@ public class StoreDatabase {
 	
 	
 	
-	private static int currUserId;
+	private static User currUser = null;
 		
 	public StoreDatabase(){
 
 		//establish database connection
 		
-		currUserId = -1;
+		setCurrUser(null);
 
 	}
 	
@@ -146,6 +146,17 @@ public class StoreDatabase {
 		//query KeywordTable
 
 		return results;
+	}
+
+	
+	//the only getter the rest of the program should need
+	public static User getCurrUser() {
+		return currUser;
+	}
+
+	//please leave private
+	private static void setCurrUser(User currUser) {
+		StoreDatabase.currUser = currUser;
 	}
 
 }

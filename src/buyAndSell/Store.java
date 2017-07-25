@@ -14,19 +14,16 @@ public class Store {
 	static Vector<Item> allItems;
 	static HashMap<String,Vector<Item>> keywordMap; //key = keyword, value = vector of Items matching
 	
-	//null if the guest isn't logged in, set when they are
-	//I THINK THIS WILL BECOME THE PRIMARY KEY IN THE DATABASE
+	
+	//THIS WILL BECOME THE PRIMARY KEY IN THE DATABASE
 	private static User currUser;
-	// Alternative - probably PRIMARY KEY
-	private static int currUserId;
 		
 	public Store(){
 		Store.passwordMap = new HashMap<String,String>(); 
 		Store.userMap = new HashMap<String,User>(); 
 		Store.keywordMap = new HashMap<String,Vector<Item>>();
 		Store.allItems = new Vector<Item>();
-		currUserId = -1;
-		setCurrUser(null);
+		Store.currUser = null;
 	}
 	
 	//return boolean of success or failure- just query the database with usernames/passwords/uid
@@ -45,7 +42,7 @@ public class Store {
 		password = Hashing.sha256().
 				hashString(password+"salt", StandardCharsets.UTF_8).toString();
 		if (pword.equals(password)) {
-			setCurrUser(userMap.get(username));
+			Store.currUser = (userMap.get(username));
 			return true;
 		}
 		
@@ -207,48 +204,5 @@ public class Store {
 	public User getCurrUser() {
 		return currUser;
 	}
-
-	public static void setCurrUser(User currUser) {
-		Store.currUser = currUser;
-	}
-	
-	public static int getCurrUserId() {
-		return currUserId;
-	}
-	public static void setCurrUserId(int id) {
-		Store.currUserId = id;
-	}
-	public static HashMap<String, String> getPasswordMap() {
-		return passwordMap;
-	}
-
-	public static void setPasswordMap(HashMap<String, String> passwordMap) {
-		Store.passwordMap = passwordMap;
-	}
-
-	public static HashMap<String, User> getUserMap() {
-		return userMap;
-	}
-
-	public static void setUserMap(HashMap<String, User> userMap) {
-		Store.userMap = userMap;
-	}
-
-	public static Vector<Item> getAllItems() {
-		return allItems;
-	}
-
-	public static void setAllItems(Vector<Item> allItems) {
-		Store.allItems = allItems;
-	}
-
-	public static HashMap<String, Vector<Item>> getKeywordMap() {
-		return keywordMap;
-	}
-
-	public static void setKeywordMap(HashMap<String, Vector<Item>> keywordMap) {
-		Store.keywordMap = keywordMap;
-	}
-
 
 }
