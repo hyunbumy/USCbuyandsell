@@ -18,7 +18,7 @@ public class Register extends HttpServlet {
        
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		Store s = (Store) request.getSession().getAttribute("store");
+		StoreDatabase s = (StoreDatabase) request.getSession().getAttribute("store");
 		String next = "/register.jsp";
 		
 		String fname = request.getParameter("fname");
@@ -38,7 +38,7 @@ public class Register extends HttpServlet {
 		}
 		
 		//attempt to create the user 
-		if (Store.createUser(fname, lname, email, phoneNum, username, password, image)) {
+		if (s.createUser(fname, lname, email, phoneNum, username, password, image)) {
 			//forwarding to the home page- may want to find out where they came from and send them back there
 			next = "/homepage.jsp";
 		}

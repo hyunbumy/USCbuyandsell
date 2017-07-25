@@ -23,13 +23,13 @@ public class Login extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String next = "/homepage.jsp";
-		Store s = (Store) request.getSession().getAttribute("store");
+		StoreDatabase s = (StoreDatabase) request.getSession().getAttribute("store");
 		
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");		
 		
 		//can log in
-		if (Store.login(username, password)) {
+		if (s.login(username, password)) {
 			//get the rest of the user's info via the database
 			//User u = new User("firstName", "lastName", "email", "phoneNum", username, password);
 		}
