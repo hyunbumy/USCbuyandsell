@@ -8,29 +8,24 @@
     
     <head>
 
-    <!--------------FOR TESTING---------------------->
+
     <%
-    
-    
-    Store s = new Store();
-    request.getSession().setAttribute("store", s);
-    Store.createUser("Brandon", "Holden", "bholden@usc.edu", "978-257-5700", "bholden", "password", "nil");
-	
-	
-	
-	Item car = new Item("My awesome first car", 10000.99, Category.ELECTRONIC, 1, s.getCurrUser());
-	Item tv = new Item("really awesome tv", 111.93, Category.ELECTRONIC, 1, s.getCurrUser());
-	Store.sellItem(car);
-	Store.sellItem(tv);
+    StoreDatabase s;
+    if (session.getAttribute("store") == null) {
+    	s = new StoreDatabase();
+    	session.setAttribute("store", s);
+    }
+    else
+    	s = (StoreDatabase) session.getAttribute("store");
 	
     Category[] allCategories = Category.values();
     
     %>
-  	<!----------------FOR TESTING------------->
+
     <%!
-    	boolean validateSession(Store store)
+    	boolean validateSession(StoreDatabase store)
     	{
-    		if (store.getCurrUser() != null)
+    		if (store.getCurrUserId() != -1)
     			return true;
     		else
     			return false;

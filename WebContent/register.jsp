@@ -107,9 +107,14 @@
 					<br><br>
 					<input type="submit" name="submit" value= "Sign up!" onclick ="validatePassword()" class="pure-button pure-button-primary">
 					<br>
+			<%
+				if (request.getAttribute("error") != null) {
+			%>
+			<%=request.getAttribute("error") %>
+			<%} %>
 				</fieldset>
 			</form> 
-		
+
 		
 		</div>
 

@@ -43,7 +43,7 @@
 		<br/><br/><br/>
 		
 		<div id="main">
-			<form name="login" action="login" method="GET">
+			<form name="login" action="login" method="POST">
 				Username:<br/>
 				<input type="text" name="username" placeholder="Enter your username" required><br/>
 				Password:<br/>
