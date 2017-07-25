@@ -22,7 +22,7 @@ public class Login extends HttpServlet {
        
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String next = "/homepage.jsp";
+		String next = "/index.jsp";
 		StoreDatabase s = (StoreDatabase) request.getSession().getAttribute("store");
 		
 		String username = request.getParameter("username");

@@ -40,7 +40,7 @@ public class Register extends HttpServlet {
 		//attempt to create the user 
 		if (s.createUser(fname, lname, email, phoneNum, username, password, image)) {
 			//forwarding to the home page- may want to find out where they came from and send them back there
-			next = "/homepage.jsp";
+			next = "/index.jsp";
 		}
 		//failed
 		else {

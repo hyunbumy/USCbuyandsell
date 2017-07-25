@@ -19,7 +19,7 @@ public class Logout extends HttpServlet {
 		HttpSession session = request.getSession();
 		StoreDatabase s = (StoreDatabase) session.getAttribute("store");
 		s.setCurrUserId(-1);
-		request.getServletContext().getRequestDispatcher("/homepage.jsp").forward(request, response);
+		request.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
 	}
 
 }
