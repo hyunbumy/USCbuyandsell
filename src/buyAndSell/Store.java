@@ -55,7 +55,8 @@ public class Store {
 	}
 	
 	//return boolean of success or failure
-	public static boolean createUser(String fName, String lName, String email, String phoneNum, String username, String password) {
+	public static boolean createUser(String fName, String lName, String email, 
+			String phoneNum, String username, String password, String image) {
 		//user already exists
 		// Use hashing with salt for password when creating a new user
 		password = Hashing.sha256().
@@ -63,6 +64,11 @@ public class Store {
 		if (passwordMap.containsKey(password)) {
 			return false;
 		}
+		
+		// Check if there is an image, if not default image
+		if (image.equals(""))
+			image = "img/default-image.png";
+			
 		
 		User u = new User(fName, lName, email, phoneNum, username, password);
 		passwordMap.put(username, password);

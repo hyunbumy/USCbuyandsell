@@ -28,6 +28,7 @@ public class Register extends HttpServlet {
 		String passwordConfirm = request.getParameter("confirm_password");
 		String email = request.getParameter("useremail");
 		String phoneNum = request.getParameter("phonenum");
+		String image = request.getParameter("userprofileimage");
 		
 		//passwords don't match
 		if (!(password.equals(passwordConfirm))) {
@@ -37,7 +38,7 @@ public class Register extends HttpServlet {
 		}
 		
 		//attempt to create the user 
-		if (Store.createUser(fname, lname, email, phoneNum, username, password)) {
+		if (Store.createUser(fname, lname, email, phoneNum, username, password, image)) {
 			//forwarding to the home page- may want to find out where they came from and send them back there
 			next = "/homepage.jsp";
 		}

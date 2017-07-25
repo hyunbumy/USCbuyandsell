@@ -69,8 +69,8 @@
 		  			Your Username: <br>
 		  			<input type="text" name="username" placeholder="Username" required>
 		  			<br>
-		  			Profile Image: <br>
-		  			<input type="file" name="userprofileimage" accept="image" required >
+		  			Profile Image URL: <br>
+		  			<input type="text" name="userprofileimage" placeholder="Optional">
 		  			<br>
 		  			USC email:<br>
 		  			<input type="email" name="useremail" placeholder="only @usc.edu emails" accept="@.usc.edu" required>
