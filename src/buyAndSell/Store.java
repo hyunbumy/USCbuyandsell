@@ -91,7 +91,7 @@ public class Store {
 			return false;
 		}
 		
-		Item i = new Item(name, pFloat, category, qInt, 1);
+		Item i = new Item(name, pFloat, category, qInt, 1, 1);
 		
 		//NEED TO ASSOCIATE THIS WITH A USER- CURRENTLY currUser
 		currUser.addItemSelling(i);

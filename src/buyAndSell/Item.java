@@ -13,11 +13,13 @@ public class Item {
 	private int itemID;
 
 	
-	public Item(String name, float price, Category category, int quantity, int itemID) {
+	public Item(String name, float price, Category category, int quantity, int itemID, int sellerID) {
 		this.name = name;
 		this.price = price;
 		this.category = category;
 		this.quantity = quantity;
+		this.itemID = itemID;
+		this.sellerID = sellerID;
 	}
 		
 	

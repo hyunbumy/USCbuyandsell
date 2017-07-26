@@ -6,6 +6,8 @@ import java.nio.charset.StandardCharsets;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Vector;
 import java.util.concurrent.TimeUnit;
 
@@ -245,7 +247,7 @@ public class StoreDatabase {
 	
 	
 	//search terms must be converted to lower case
-	public static Vector<Item> search(String searchTerm) {
+	public static Vector<Item> search(String searchTerm, Category category) {
 		//convert toLower for search terms and db keywords
 		Vector<Item> results = new Vector<Item>();
 		
@@ -254,6 +256,7 @@ public class StoreDatabase {
 		//query KeywordTable
 		Statement st = connect();
 		ResultSet rs;
+		HashSet<Integer> ids = new HashSet<>();
 		try {
 			//get the itemIDs for each search term
 			for (int i = 0; i < searchTerms.length; i++) {
@@ -262,19 +265,68 @@ public class StoreDatabase {
 				//go through itemIDs to get items from ItemsTable
 				while (rs.next()) {
 					int itemID = rs.getInt("itemID");
-					//need to get all the Item info and instantiate Item
+					//need to get all the Item info from ItemsTable and instantiate Item
+					
 				}
+			}
 			
+			// Instantiate items with the same category
+			Iterator iter = ids.iterator();
+			while(iter.hasNext()) {
+				int currId = (int) iter.next();
+				// If all category
+				if (category.equals("ALL"))
+					rs = st.executeQuery("SELECT * FROM ItemsTable WHERE itemID="+currId+";"); 
+				else
+					rs = st.executeQuery("SELECT * FROM ItemsTable WHERE itemID="+currId+" AND category=\'"+category+"\';");
+				while (rs.next()) {
+					String name = rs.getString("title");
+					int quantity = rs.getInt("quantity");
+					int sellerId = rs.getInt("sellingUser");
+					int itemId = rs.getInt("itemID");
+					float price = rs.getFloat("price");
+					Category cat = Category.valueOf(rs.getString("category"));
+					results.add(new Item(name, price, cat, quantity, itemId, sellerId));
+				}
 			}
 			
 		
 		} catch (SQLException e) {
 			System.out.println("Search failure: " + e.getMessage());
 		}	
-
+		
 		return results;
 	}
 
+	
+	//pass in a userID and get back a User object (or null if id isn't in db)
+	public static User getUserProfileByID(int id) {
+		Statement st = connect();
+		ResultSet rs;
+		try {
+			rs = st.executeQuery("SELECT uname, pword, fname,lname,email,phoneNum,rating,image,userID FROM UserTable"
+					+ " WHERE " + "userID="+id+";");
+			if (rs.next()) {
+				String unameDB = rs.getString("uname");
+				String pwordDB = rs.getString("pword");
+				String fnameDB = rs.getString("fname");
+				String lnameDB = rs.getString("lname");
+				String emailDB = rs.getString("email");
+				String phoneNumDB = rs.getString("phoneNum");
+				String imageDB = rs.getString("image");
+				int userID = rs.getInt("userID");
+				
+				User u = new User(fnameDB, lnameDB, emailDB, phoneNumDB, unameDB, userID);
+				if (imageDB != null) {
+					u.setImage(imageDB);
+				}
+				return u;
+			}
+		} catch (SQLException e) {
+			System.out.println("Search failure: " + e.getMessage());
+		}	
+		return null;
+	}
 	
 	//the only getter the rest of the program should need
 	public static User getCurrUser() {
