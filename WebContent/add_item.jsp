@@ -117,7 +117,7 @@
 		        	</select>
 		  			<br>
 		  			Quantity:<br>
-		  			<input type="number" name="quantity" value="0" min="0" step="1" data-number-to-fixed="0" required>
+		  			<input type="number" name="quantity" value="1" min="1" step="1" data-number-to-fixed="0" required>
 		  			<br>
 		  			Image:<br>
 		  			<input type="text" name="image" placeholder="Image URL" >
