@@ -230,6 +230,25 @@ public class StoreDatabase {
 		String[] searchTerms = searchTerm.split(" ");
 		
 		//query KeywordTable
+		Statement st = connect();
+		ResultSet rs;
+		try {
+			//get the itemIDs for each search term
+			for (int i = 0; i < searchTerms.length; i++) {
+				String keyword = searchTerms[i];
+				rs = st.executeQuery("SELECT itemID FROM KeywordTable WHERE keyword=\'"+keyword+ "\';)");	
+				//go through itemIDs to get items from ItemsTable
+				while (rs.next()) {
+					int itemID = rs.getInt("itemID");
+					//need to get all the Item info and instantiate Item
+				}
+			
+			}
+			
+		
+		} catch (SQLException e) {
+			System.out.println("Search failure: " + e.getMessage());
+		}	
 
 		return results;
 	}
