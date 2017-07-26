@@ -117,6 +117,7 @@ public class StoreDatabase {
 		Statement st = connect();
 		ResultSet rs;
 		try {
+			System.out.println("creating user");
 			rs = st.executeQuery("SELECT uname FROM UserTable" + " WHERE " + "uname=\'"+username+"\';");
 			//if there is a result that means the user already exists 
 			if((rs.next())) {
