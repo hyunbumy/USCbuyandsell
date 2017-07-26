@@ -67,18 +67,18 @@ public class Store {
 			image = "img/default-image.png";
 			
 		
-		//User u = new User(fName, lName, email, phoneNum, username, password);
+		User u = new User(fName, lName, email, phoneNum, username, 1);
 		passwordMap.put(username, password);
-		//currUser = u;
+		currUser = u;
 		return true;
 	}
 	
 	
 	public boolean sellItemFromParam(String name, String price, Category category, String quantity) {
 		//convert price string to double- if it fails return false
-		double pDouble;
+		float pFloat;
 		try {
-			pDouble = Double.parseDouble(price);
+			pFloat = Float.parseFloat(price);
 		} catch (NumberFormatException e) {
 			return false;
 		}		
@@ -91,7 +91,7 @@ public class Store {
 			return false;
 		}
 		
-		Item i = new Item(name, pDouble, category, qInt, currUser);
+		Item i = new Item(name, pFloat, category, qInt, 1, 1);
 		
 		//NEED TO ASSOCIATE THIS WITH A USER- CURRENTLY currUser
 		currUser.addItemSelling(i);

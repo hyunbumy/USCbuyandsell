@@ -25,7 +25,7 @@
     <%!
     	boolean validateSession(StoreDatabase store)
     	{
-    		if (store.getCurrUserId() != -1)
+    		if (store.getCurrUser() != null)
     			return true;
     		else
     			return false;
@@ -137,12 +137,6 @@
         	<input type="text" name="term" placeholder="Search for an item!">
         	<input type="submit" value="SEARCH">
         </form><br/>
-        <%
-        	if (request.getAttribute("error") != null && 
-        		!request.getAttribute("error").equals("")) {
-        %>
-        <span style="color:red;"><%=request.getAttribute("error") %></span>
-        <%} %>
         </div>
 
         <script>

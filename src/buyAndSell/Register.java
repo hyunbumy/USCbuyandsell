@@ -30,13 +30,22 @@ public class Register extends HttpServlet {
 		String phoneNum = request.getParameter("phonenum");
 		String image = request.getParameter("userprofileimage");
 		
+		boolean isValidated = false;
+		
 		//passwords don't match
 		if (!(password.equals(passwordConfirm))) {
-			request.setAttribute("error", "Passwords do not match");
-			RequestDispatcher dispatch = request.getServletContext().getRequestDispatcher(next);
-			dispatch.forward(request, response);
+			request.setAttribute("error", "Passwords do not match");			
 		}
 		
+		// email not usc.edu
+		else if (!email.split("@")[1].equals("usc.edu")) {
+			request.setAttribute("error", "USC email required!");
+		}
+		else {
+			isValidated = true;
+		}
+		
+		if (isValidated) {
 		//attempt to create the user 
 		if (s.createUser(fname, lname, email, phoneNum, username, password, image)) {
 			//forwarding to the home page- may want to find out where they came from and send them back there
@@ -46,7 +55,7 @@ public class Register extends HttpServlet {
 		else {
 			request.setAttribute("error", "The username "+username+" already exists in our system");
 		}
-		
+		}
 		RequestDispatcher dispatch = request.getServletContext().getRequestDispatcher(next);
 		dispatch.forward(request, response);
 		

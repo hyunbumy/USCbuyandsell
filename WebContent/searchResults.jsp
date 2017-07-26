@@ -7,8 +7,9 @@
 	<head>
 		<%
 		StoreDatabase store = (StoreDatabase) request.getSession().getAttribute("store");
-		String searchTerm = (String) request.getSession().getAttribute("searchTerm");
-		Vector<Item> results = store.search(searchTerm);
+		String searchTerm = (String) request.getAttribute("searchTerm");
+		String category = (String) request.getAttribute("category");
+		Vector<Item> results = store.search(searchTerm, category);
 		%>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Search Results for "<%=searchTerm %>"</title>

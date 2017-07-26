@@ -25,14 +25,15 @@ public class Search extends HttpServlet {
 
 		// Check the validity of the search
 		// If not, send back to the home page with 
-		if (searchTerm == null || searchTerm.equals("")) {
+		if (searchTerm == null) {
 			// Get the url of the previous page
 			//next = request.getHeader("referer").split("USCbuyandsell")[1];
 			next = "/index.jsp";
 			request.setAttribute("error", "Please enter a search term");
 		}
 		else {
-			request.getSession().setAttribute("searchTerm", searchTerm);
+			request.setAttribute("searchTerm", searchTerm);
+			request.setAttribute("category", category);
 		}
 		
 

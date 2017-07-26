@@ -7,17 +7,19 @@ public class Item {
 	private String image;
 	private Category category;
 	private int quantity;
-	private double price;
+	private float price;
 	private int sellerID; // map/database ID that we assign to every user 
 	private String description;
-	private int uniqueID;
+	private int itemID;
+
 	
-	public Item(String name, double d, Category category, int quantity, User sellingUser) {
+	public Item(String name, float price, Category category, int quantity, int itemID, int sellerID) {
 		this.name = name;
-		this.price = d;
+		this.price = price;
 		this.category = category;
 		this.quantity = quantity;
-		this.sellerID = sellingUser.getUniqueId();
+		this.itemID = itemID;
+		this.sellerID = sellerID;
 	}
 		
 	
@@ -49,7 +51,7 @@ public class Item {
 		this.category = category;
 	}
 
-	public double getPrice() {
+	public float getPrice() {
 		return price;
 	}
 
@@ -81,16 +83,14 @@ public class Item {
 		this.quantity = quantity;
 	}
 
-	public int getId() {
-		return uniqueID;
+
+	public int getItemID() {
+		return itemID;
 	}
 
-	public void setUniqueID(int uniqueID) {
-		this.uniqueID = uniqueID;
+
+	public void setItemID(int itemID) {
+		this.itemID = itemID;
 	}
-	
-	
-	
-	
 
 }
