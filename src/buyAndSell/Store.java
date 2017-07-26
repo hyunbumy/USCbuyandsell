@@ -76,9 +76,9 @@ public class Store {
 	
 	public boolean sellItemFromParam(String name, String price, Category category, String quantity) {
 		//convert price string to double- if it fails return false
-		double pDouble;
+		float pFloat;
 		try {
-			pDouble = Double.parseDouble(price);
+			pFloat = Float.parseFloat(price);
 		} catch (NumberFormatException e) {
 			return false;
 		}		
@@ -91,7 +91,7 @@ public class Store {
 			return false;
 		}
 		
-		Item i = new Item(name, pDouble, category, qInt, currUser);
+		Item i = new Item(name, pFloat, category, qInt);
 		
 		//NEED TO ASSOCIATE THIS WITH A USER- CURRENTLY currUser
 		currUser.addItemSelling(i);

@@ -7,24 +7,26 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
+import java.util.concurrent.TimeUnit;
 
 import com.google.common.hash.Hashing;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
 
 public class StoreDatabase {
-
+	
 	public static void main(String[] args) {
-		//StoreDatabase s = new StoreDatabase();
-		//login("jmilly", "lab1");
 		createUser("jmiller", "password", "jeff", "miller", "jmiller@usc.edu", "98498", "image");
+		login("jmiller", "password");
+		Item i = new Item ("3 piece suit", (float) 99.99, Category.ELECTRONIC, 1);
+		sellItem(i);
 	}
 	
-	private static User currUser = null;
+	private static User currUser;
 		
 	public StoreDatabase (){
 		//set currUser to null
-		setCurrUser(null);
+		StoreDatabase.setCurrUser(null);
 	}
 	
 	// Establish DB connection
@@ -49,14 +51,18 @@ public class StoreDatabase {
 		//hash password
 		password = Hashing.sha256().hashString(password+"salt", StandardCharsets.UTF_8).toString();
 		
+		System.out.println("login");
+		
 		//query db
 		Statement st = connect();
 		ResultSet rs;
 		try {
 			rs = st.executeQuery("SELECT uname, pword, fname,lname,email,phoneNum,image,userID FROM UserTable"
 					+ " WHERE " + "uname=\'"+username+"\' AND pword=\'"+password+"\';");
+			System.out.println("login2");
 			// There should be either one or no result row
 			if(rs.next()) {
+				System.out.println("login3");
 				// If true, there was a match, therefore correct login
 				String uname = rs.getString("uname");
 				String pword = rs.getString("pword");
@@ -66,6 +72,7 @@ public class StoreDatabase {
 				String phoneNum = rs.getString("phoneNum");
 				String image = rs.getString("image");
 				int userID = rs.getInt("userID");
+				System.out.println(userID);
 				
 //				System.out.println("Username: "+ uname);
 //				System.out.println("Password: "+ pword);
@@ -77,13 +84,15 @@ public class StoreDatabase {
 //				System.out.println("UserID: "+ userID);
 				
 				User u = new User(fname, lname, email, phoneNum, uname, userID);
-				currUser = u;
+				StoreDatabase.currUser = u;
+				System.out.println("set currUser");
 				return true;
 			}
 		} catch (SQLException e) {
 			System.out.println("Login failure: " + e.getMessage());
 			return false;
 		}	
+		
 		//failure
 		return false;
 		
@@ -138,7 +147,7 @@ public class StoreDatabase {
 //					System.out.println("UserID: "+ userID);
 					
 					User u = new User(fName, lName, email, phoneNum, username, userID);
-					currUser = u;
+					StoreDatabase.currUser = u;
 					return true;
 				}
 			}
@@ -152,32 +161,20 @@ public class StoreDatabase {
 	}
 	
 	
-
-	
 	public static void sellItem(Item i) {
 		//add Item to ItemsTable
 		//query db
 		Statement st = connect();
 		ResultSet rs;
+		System.out.println("sell item");
+		int sellingUserID = StoreDatabase.currUser.getUserID();
 		try {
-			rs = st.executeQuery("SELECT uname, pword, fname,lname,email,phoneNum,image,userID FROM UserTable"
-					+ " WHERE " + "uname=\'"+username+"\' AND pword=\'"+password+"\';");
-			// There should be either one or no result row
+			String query = "INSERT INTO ItemsTable(sellingUser,title,price,category,quantity,description,image)\n";
+			query += "VALUES (" + sellingUserID + "," + "\'"+i.getName()+"\'," + +i.getPrice()+"," + "\'"+i.getCategory()
+					+"\'," + i.getQuantity() + "," + "\'"+i.getDescription()+"\'," +"\'"+ i.getImage() +"\');";
+			st.executeUpdate(query);
 			
-			
-			if(rs.next()) {
-				// If true, there was a match, therefore correct login
-				String uname = rs.getString("uname");
-				String pword = rs.getString("pword");
-				String fname = rs.getString("fname");
-				String lname = rs.getString("lname");
-				String email = rs.getString("email");
-				String phoneNum = rs.getString("phoneNum");
-				String image = rs.getString("image");
-				int userID = rs.getInt("userID");
 
-			
-			}
 		} catch (SQLException e) {
 			System.out.println("Login failure: " + e.getMessage());
 		

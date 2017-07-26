@@ -23,7 +23,6 @@ public class User extends Guest {
 		this.email = email;
 		this.phoneNumber = phoneNum;
 		this.username = username;
-		this.password = password;
 		this.userID = userID;
 		
 		this.wishlist = new Vector<Item>();
