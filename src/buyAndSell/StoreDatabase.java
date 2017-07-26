@@ -15,8 +15,9 @@ import com.mysql.jdbc.Statement;
 public class StoreDatabase {
 
 	public static void main(String[] args) {
-		StoreDatabase s = new StoreDatabase();
-		login("jmilly", "lab1");
+		//StoreDatabase s = new StoreDatabase();
+		//login("jmilly", "lab1");
+		createUser("jmiller", "password", "jeff", "miller", "jmiller@usc.edu", "98498", "image");
 	}
 	
 	private static User currUser = null;
@@ -74,7 +75,6 @@ public class StoreDatabase {
 				
 				User u = new User(fname, lname, email, phoneNum, uname, pword, userID);
 				currUser = u;
-				
 				return true;
 			}
 		} catch (SQLException e) {
@@ -87,15 +87,60 @@ public class StoreDatabase {
 	}
 	
 	//return boolean of success or failure
-	public static boolean createUser(String fName, String lName, String email, 
-			String phoneNum, String username, String password, String image) {
+	public static boolean createUser(String username, String password, String fName, String lName, String email, 
+			String phoneNum, String image) {
 		
 		// Use hashing with salt for password when creating a new user
 		password = Hashing.sha256().
 				hashString(password+"salt", StandardCharsets.UTF_8).toString();
 		
 		//check to see if they exist in the UserTable, if not, add them
-		//if they do, return false for an error message
+		//if they do, return false for an error message	
+		//query db
+		Statement st = connect();
+		ResultSet rs;
+		try {
+			rs = st.executeQuery("SELECT uname FROM UserTable" + " WHERE " + "uname=\'"+username+"\';");
+			//if there is a result that means the user already exists 
+			if((rs.next())) {
+				// If true, there was a match, therefore correct login
+				System.out.println("user already exists");
+				return false;
+			}
+			else {
+				String query = "INSERT INTO UserTable(uname,pword,fname,lname,email,phoneNum,rating,image)\n";
+				query += "VALUES (\'"+ username + "\'," + "\'"+password+"\'," + "\'"+fName+"\'," 
+						+ "\'"+lName+"\'," +"\'"+ email+"\'," + "\'"+phoneNum+"\',"+ 0.0 +"," +"\'"+ image +"\');";
+				st.executeUpdate(query);
+				
+				rs = st.executeQuery("SELECT uname, pword, fname,lname,email,phoneNum,rating,image,userID FROM UserTable"
+						+ " WHERE " + "uname=\'"+username+"\';");
+				if (rs.next()) {
+					String unameDB = rs.getString("uname");
+					String pwordDB = rs.getString("pword");
+					String fnameDB = rs.getString("fname");
+					String lnameDB = rs.getString("lname");
+					String emailDB = rs.getString("email");
+					String phoneNumDB = rs.getString("phoneNum");
+					String imageDB = rs.getString("image");
+					int userID = rs.getInt("userID");
+					
+					System.out.println("Username: "+ unameDB);
+					System.out.println("Password: "+ pwordDB);
+					System.out.println("First Name: "+ fnameDB);
+					System.out.println("Last Name: "+ lnameDB);
+					System.out.println("Email: "+ emailDB);
+					System.out.println("Phone Number: "+ phoneNumDB);
+					System.out.println("Image: "+ imageDB);
+					System.out.println("UserID: "+ userID);
+				}
+			}
+		} catch (SQLException e) {
+			System.out.println("Create User failure: " + e.getMessage());
+			return false;
+		}	
+		
+		
 		
 		
 		return true;
