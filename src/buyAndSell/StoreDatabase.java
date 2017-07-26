@@ -273,6 +273,7 @@ public class StoreDatabase {
 				while (rs.next()) {
 					int itemID = rs.getInt("itemID");
 					//need to get all the Item info from ItemsTable and instantiate Item
+
 					ids.add(itemID);
 				}
 			}
