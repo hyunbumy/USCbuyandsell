@@ -61,6 +61,7 @@ public class StoreDatabase {
 				String phoneNum = rs.getString("phoneNum");
 				String image = rs.getString("image");
 				int userID = rs.getInt("userID");
+				System.out.println(userID);
 				
 //				System.out.println("Username: "+ uname);
 //				System.out.println("Password: "+ pword);
@@ -188,6 +189,7 @@ public class StoreDatabase {
 			
 			if (rs.next()) {
 				int itemID = rs.getInt("itemID");
+				System.out.println(itemID);
 				//get the keywords and add those to db
 				Vector<String> keywords = new Vector<String>();
 				parseKeywords(name, keywords);

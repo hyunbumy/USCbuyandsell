@@ -37,6 +37,7 @@ public class Login extends HttpServlet {
 		//can't log in- either don't exist in the system or incorrect password
 		else {
 			request.setAttribute("error", "User does not exist");
+			next = "/login.jsp";
 		}
 		
 		RequestDispatcher dispatch = request.getServletContext().getRequestDispatcher(next);
