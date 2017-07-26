@@ -7,7 +7,7 @@ USE USCbuyandsell;
 CREATE TABLE UserTable (
 	
     uname VARCHAR(20) NOT NULL,
-    pword VARCHAR(20) NOT NULL,
+    pword VARCHAR(2000) NOT NULL,
     fname VARCHAR(20) NOT NULL,
     lname VARCHAR(20) NOT NULL,
     email VARCHAR(20) NOT NULL,
