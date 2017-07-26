@@ -17,7 +17,7 @@ public class User extends Guest {
 	private Vector<Item> wishlist;
 	private Vector<Message> messages;
 	
-	public User(String fName, String lName, String email, String phoneNum, String username, String password, int userID) {
+	public User(String fName, String lName, String email, String phoneNum, String username, int userID) {
 		this.fName = fName;
 		this.lName = lName;
 		this.email = email;

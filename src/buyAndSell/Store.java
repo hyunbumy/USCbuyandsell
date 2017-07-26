@@ -67,7 +67,7 @@ public class Store {
 			image = "img/default-image.png";
 			
 		
-		User u = new User(fName, lName, email, phoneNum, username, password, 1);
+		User u = new User(fName, lName, email, phoneNum, username, 1);
 		passwordMap.put(username, password);
 		currUser = u;
 		return true;

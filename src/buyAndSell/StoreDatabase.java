@@ -46,6 +46,9 @@ public class StoreDatabase {
 	
 	//return boolean of success or failure
 	public static boolean login(String username, String password) {	
+		//hash password
+		password = Hashing.sha256().hashString(password+"salt", StandardCharsets.UTF_8).toString();
+		
 		//query db
 		Statement st = connect();
 		ResultSet rs;
@@ -73,7 +76,7 @@ public class StoreDatabase {
 //				System.out.println("Image: "+ image);
 //				System.out.println("UserID: "+ userID);
 				
-				User u = new User(fname, lname, email, phoneNum, uname, pword, userID);
+				User u = new User(fname, lname, email, phoneNum, uname, userID);
 				currUser = u;
 				return true;
 			}
@@ -125,14 +128,18 @@ public class StoreDatabase {
 					String imageDB = rs.getString("image");
 					int userID = rs.getInt("userID");
 					
-					System.out.println("Username: "+ unameDB);
-					System.out.println("Password: "+ pwordDB);
-					System.out.println("First Name: "+ fnameDB);
-					System.out.println("Last Name: "+ lnameDB);
-					System.out.println("Email: "+ emailDB);
-					System.out.println("Phone Number: "+ phoneNumDB);
-					System.out.println("Image: "+ imageDB);
-					System.out.println("UserID: "+ userID);
+//					System.out.println("Username: "+ unameDB);
+//					System.out.println("Password: "+ pwordDB);
+//					System.out.println("First Name: "+ fnameDB);
+//					System.out.println("Last Name: "+ lnameDB);
+//					System.out.println("Email: "+ emailDB);
+//					System.out.println("Phone Number: "+ phoneNumDB);
+//					System.out.println("Image: "+ imageDB);
+//					System.out.println("UserID: "+ userID);
+					
+					User u = new User(fName, lName, email, phoneNum, username, userID);
+					currUser = u;
+					return true;
 				}
 			}
 		} catch (SQLException e) {
@@ -140,16 +147,43 @@ public class StoreDatabase {
 			return false;
 		}	
 		
-		
-		
-		
-		return true;
+		//failure
+		return false;
 	}
 	
 	
 
 	
 	public static void sellItem(Item i) {
+		//add Item to ItemsTable
+		//query db
+		Statement st = connect();
+		ResultSet rs;
+		try {
+			rs = st.executeQuery("SELECT uname, pword, fname,lname,email,phoneNum,image,userID FROM UserTable"
+					+ " WHERE " + "uname=\'"+username+"\' AND pword=\'"+password+"\';");
+			// There should be either one or no result row
+			
+			
+			if(rs.next()) {
+				// If true, there was a match, therefore correct login
+				String uname = rs.getString("uname");
+				String pword = rs.getString("pword");
+				String fname = rs.getString("fname");
+				String lname = rs.getString("lname");
+				String email = rs.getString("email");
+				String phoneNum = rs.getString("phoneNum");
+				String image = rs.getString("image");
+				int userID = rs.getInt("userID");
+
+			
+			}
+		} catch (SQLException e) {
+			System.out.println("Login failure: " + e.getMessage());
+		
+		}	
+		
+		
 		
 		//NEED THIS TO RETURN THE KEYWORDS	
 		//or I could just add to the database from there idk yet
