@@ -26,6 +26,7 @@ CREATE TABLE ItemsTable (
     category VARCHAR(20) NOT NULL, -- need to decide if I want to make a CategoriesTable to store the ones we have
 	quantity INT(3) NOT NULL, -- on front end, if they don't enter a quantiy we must set it to 1
     description VARCHAR(100),
+    image VARCHAR(100),
     itemID INT(6) PRIMARY KEY AUTO_INCREMENT,
     
     -- selling user is the auto-generated key from UserTable
@@ -55,15 +56,11 @@ CREATE TABLE WishlistTable(
 
 );
 
-INSERT INTO UserTable (uname, pword, fname, lname, email, phoneNum)
-	VALUES ('jmilly', 'lab1', 'Jeff', 'Miller', 'jmiller@usc.edu', '978-257-5700'),
-					('ralfayez', 'root', 'Reem', 'Alfayez', 'alfayez@usc.edu', '123-456-7890');
 
 
-INSERT INTO ItemsTable(sellingUser, title, price, category, quantity)
-	VALUES (1, '3 piece suit', 99.99, 'clothes', 1), 
-					(1, 'USC tie', 10, 'clothes', 5),
-                    (2, '5% in 201 grade', 999.99, 'idk', 1);
+
+
+
                     
 
 
