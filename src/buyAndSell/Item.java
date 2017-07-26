@@ -13,7 +13,7 @@ public class Item {
 	private int itemID;
 
 	
-	public Item(String name, float price, Category category, int quantity) {
+	public Item(String name, float price, Category category, int quantity, int itemID) {
 		this.name = name;
 		this.price = price;
 		this.category = category;
