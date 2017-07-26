@@ -47,7 +47,7 @@ public class Register extends HttpServlet {
 		
 		if (isValidated) {
 		//attempt to create the user 
-		if (s.createUser(fname, lname, email, phoneNum, username, password, image)) {
+		if (s.createUser(username, password, fname, lname, email, phoneNum, image)) {
 			//forwarding to the home page- may want to find out where they came from and send them back there
 			next = "/index.jsp";
 		}

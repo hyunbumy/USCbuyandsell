@@ -1,35 +1,42 @@
 package buyAndSell;
 
+import static java.sql.DriverManager.getConnection;
+
 import java.nio.charset.StandardCharsets;
-import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Vector;
+import java.util.concurrent.TimeUnit;
 
 import com.google.common.hash.Hashing;
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.Statement;
 
 public class StoreDatabase {
-
+	
+	public static void main(String[] args) {
+		//createUser("jmiller", "password", "jeff", "miller", "jmiller@usc.edu", "98498", "image");
+		login("jmiller", "password");
+		sellItem("3 piece suit", (float) 99.99, Category.ELECTRONIC, 1, null, null);
+	}
+	
 	private static User currUser;
 		
-	public StoreDatabase(){
-		currUser = null;
+	public StoreDatabase (){
+		//set currUser to null
+		StoreDatabase.setCurrUser(null);
 	}
 	
 	// Establish DB connection
-	private static Statement connect()
-	{
+	private static Statement connect() {
 		//establish database connection
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection conn = DriverManager.getConnection("jdbc:mysql://buyandselldb.cphsc4421sco.us-east-2.rds.amazonaws.com/USCbuyandsell?user=root&password=uscbuyandsell");
-			Statement st = conn.createStatement();
-			System.out.println(st);
+			Connection conn = (Connection) DriverManager.getConnection("jdbc:mysql://buyandselldb.cphsc4421sco.us-east-2.rds.amazonaws.com/USCbuyandsell?user=root&password=uscbuyandsell");
+			Statement st = (Statement) conn.createStatement();
 			return st;
 		} catch(SQLException sqle) {
 			System.out.println("sqle: "+sqle.getMessage());
@@ -38,6 +45,7 @@ public class StoreDatabase {
 		}
 		return null;
 	}
+	
 	
 	//return boolean of success or failure
 	public static boolean login(String username, String password) {	
@@ -61,7 +69,6 @@ public class StoreDatabase {
 				String phoneNum = rs.getString("phoneNum");
 				String image = rs.getString("image");
 				int userID = rs.getInt("userID");
-				System.out.println(userID);
 				
 //				System.out.println("Username: "+ uname);
 //				System.out.println("Password: "+ pword);
@@ -110,6 +117,7 @@ public class StoreDatabase {
 		Statement st = connect();
 		ResultSet rs;
 		try {
+			System.out.println("creating user");
 			rs = st.executeQuery("SELECT uname FROM UserTable" + " WHERE " + "uname=\'"+username+"\';");
 			//if there is a result that means the user already exists 
 			if((rs.next())) {
@@ -189,7 +197,6 @@ public class StoreDatabase {
 			
 			if (rs.next()) {
 				int itemID = rs.getInt("itemID");
-				System.out.println(itemID);
 				//get the keywords and add those to db
 				Vector<String> keywords = new Vector<String>();
 				parseKeywords(name, keywords);
@@ -251,28 +258,28 @@ public class StoreDatabase {
 		//query KeywordTable
 		Statement st = connect();
 		ResultSet rs;
+		HashSet<Integer> ids = new HashSet<>();
 		try {
 			//get the itemIDs for each search term
-			HashSet<Integer> ids = new HashSet<>();
 			for (int i = 0; i < searchTerms.length; i++) {
+
 				String keyword = searchTerms[i];
 				// If no search term, return all items regardless the keyword
 				if (searchTerm.equals(""))
 					rs = st.executeQuery("SELECT itemID FROM KeywordTable;");
 				else
-					rs = st.executeQuery("SELECT itemID FROM KeywordTable WHERE keyword=\'"+keyword+ "\';");	
+					rs = st.executeQuery("SELECT itemID FROM KeywordTable WHERE keyword=\'"+keyword+ "\';");
 				//go through itemIDs to get items from ItemsTable
 				while (rs.next()) {
 					int itemID = rs.getInt("itemID");
-					//need to get all the Item info and instantiate Item
+					//need to get all the Item info from ItemsTable and instantiate Item
 					ids.add(itemID);
 				}
 			}
 			
 			// Instantiate items with the same category
 			Iterator iter = ids.iterator();
-			while(iter.hasNext())
-			{
+			while(iter.hasNext()) {
 				int currId = (int) iter.next();
 				// If all category
 				if (category.equals("ALL"))
@@ -294,18 +301,51 @@ public class StoreDatabase {
 		} catch (SQLException e) {
 			System.out.println("Search failure: " + e.getMessage());
 		}	
-
+		
 		return results;
 	}
 
+	
+	//pass in a userID and get back a User object (or null if id isn't in db)
+	public static User getUserProfileByID(int id) {
+		Statement st = connect();
+		ResultSet rs;
+		try {
+			rs = st.executeQuery("SELECT uname, pword, fname,lname,email,phoneNum,rating,image,userID FROM UserTable"
+					+ " WHERE " + "userID="+id+";");
+			if (rs.next()) {
+				String unameDB = rs.getString("uname");
+				String pwordDB = rs.getString("pword");
+				String fnameDB = rs.getString("fname");
+				String lnameDB = rs.getString("lname");
+				String emailDB = rs.getString("email");
+				String phoneNumDB = rs.getString("phoneNum");
+				String imageDB = rs.getString("image");
+				int userID = rs.getInt("userID");
+				
+				User u = new User(fnameDB, lnameDB, emailDB, phoneNumDB, unameDB, userID);
+				if (imageDB != null) {
+					u.setImage(imageDB);
+				}
+				return u;
+			}
+		} catch (SQLException e) {
+			System.out.println("Search failure: " + e.getMessage());
+		}	
+		return null;
+	}
 	
 	//the only getter the rest of the program should need
 	public static User getCurrUser() {
 		return currUser;
 	}
+	
+	public static void logout() {
+		currUser = null;
+	}
 
 	//please leave private
-	public static void setCurrUser(User currUser) {
+	private static void setCurrUser(User currUser) {
 		StoreDatabase.currUser = currUser;
 	}
 	
