@@ -17,12 +17,6 @@ import com.mysql.jdbc.Statement;
 
 public class StoreDatabase {
 	
-	public static void main(String[] args) {
-		//createUser("jmiller", "password", "jeff", "miller", "jmiller@usc.edu", "98498", "image");
-		login("jmiller", "password");
-		sellItem("3 piece suit", (float) 99.99, Category.ELECTRONIC, 1, null, null);
-	}
-	
 	private static User currUser;
 		
 	public StoreDatabase (){
