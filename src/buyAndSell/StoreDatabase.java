@@ -18,8 +18,7 @@ public class StoreDatabase {
 	public static void main(String[] args) {
 		//createUser("jmiller", "password", "jeff", "miller", "jmiller@usc.edu", "98498", "image");
 		login("jmiller", "password");
-		//Item i = new Item ("3 piece suit", (float) 99.99, Category.ELECTRONIC, 1, null);
-		//sellItem(i);
+		sellItem("3 piece suit", (float) 99.99, Category.ELECTRONIC, 1, null, null);
 	}
 	
 	private static User currUser;
@@ -95,12 +94,16 @@ public class StoreDatabase {
 	
 	/*
 	 * IMPORTANT:
-	 * image can be null, the rest must have values
+	 * image can be null, or empty string the rest must have values
 	 * 
 	 */
 	//return boolean of success or failure
 	public static boolean createUser(String username, String password, String fName, String lName, String email, 
 			String phoneNum, String image) {
+		
+		if (image == null || image.equals("")) {
+			image = null;
+		}
 		
 		// Use hashing with salt for password when creating a new user
 		password = Hashing.sha256().
@@ -162,7 +165,7 @@ public class StoreDatabase {
 	
 	/*
 	 * IMPORTANT:
-	 * description and image can be null, the rest must have values
+	 * description and image can be null or empty string, the rest must have values
 	 * 
 	 */
 	public static void sellItem(String name, float price, Category category, int quantity, String description, String image) {
@@ -170,45 +173,43 @@ public class StoreDatabase {
 		Statement st = connect();
 		ResultSet rs;
 		int sellingUserID = StoreDatabase.currUser.getUserID();
+
+		//making sure db recognizes "" as null
+		if (description == null || description.equals("")) {
+			description = null;
+		}
+		if (image == null || image.equals("")) {
+			image = null;
+		}
 		
-		/*
-		 * 
-		 * fix below method to reflect individual item data members as parameters rather than Item
-		 * 
-		 */
-		
-		
-		
-		
-		
-//		try {
-//			String query = "INSERT INTO ItemsTable(sellingUser,title,price,category,quantity,description,image)\n";
-//			query += "VALUES (" + sellingUserID + "," + "\'"+i.getName()+"\'," + +i.getPrice()+"," + "\'"+i.getCategory()
-//					+"\'," + i.getQuantity() + "," + "\'"+i.getDescription()+"\'," +"\'"+ i.getImage() +"\');";
-//			st.executeUpdate(query);
-//			
-//			//get the itemID that was generated
-//			rs = st.executeQuery("SELECT itemID FROM ItemsTable WHERE " + "title=\'"+i.getName()+
-//					"\' AND sellingUser="+sellingUserID+ " AND description=\'"+i.getDescription()+"\';");
-//			
-//			if (rs.next()) {
-//				int itemID = rs.getInt("itemID");
-//				//get the keywords and add those to db
-//				Vector<String> keywords = new Vector<String>();
-//				parseKeywords(i.getName(), keywords);
-//				parseKeywords(i.getDescription(), keywords);
-//				for (int j = 0; j < keywords.size(); j++) {
-//					//add to Keywords
-//					String k = keywords.get(j);
-//					String dbStr = "INSERT INTO KeywordTable(keyword,itemID)\n";
-//					dbStr += "VALUES (\'"+ k + "\'," + itemID +");";
-//					st.executeUpdate(dbStr);
-//				}
-//			}
-//			
-//		} catch (SQLException e) {
-//			System.out.println("Sell item failure: " + e.getMessage());
-//		}			
+		try {
+			String query = "INSERT INTO ItemsTable(sellingUser,title,price,category,quantity,description,image)\n";
+			query += "VALUES (" + sellingUserID + "," + "\'"+name+"\'," + +price+"," + "\'"+category
+					+"\'," + quantity + "," + "\'"+description+"\'," +"\'"+ image +"\');";
+			st.executeUpdate(query);
+			
+			//get the itemID that was generated
+			rs = st.executeQuery("SELECT itemID FROM ItemsTable WHERE " + "title=\'"+name+
+					"\' AND sellingUser="+sellingUserID+ " AND description=\'"+description+"\';");
+			
+			if (rs.next()) {
+				int itemID = rs.getInt("itemID");
+				//get the keywords and add those to db
+				Vector<String> keywords = new Vector<String>();
+				parseKeywords(name, keywords);
+				parseKeywords(description, keywords);
+				for (int j = 0; j < keywords.size(); j++) {
+					//add to Keywords
+					String k = keywords.get(j);
+					String dbStr = "INSERT INTO KeywordTable(keyword,itemID)\n";
+					dbStr += "VALUES (\'"+ k + "\'," + itemID +");";
+					st.executeUpdate(dbStr);
+				}
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("Sell item failure: " + e.getMessage());
+		}			
 		
 	}
 	
