@@ -10,6 +10,7 @@ public class Item {
 	private float price;
 	private int sellerID; // map/database ID that we assign to every user 
 	private String description;
+	private int itemID;
 
 	
 	public Item(String name, float price, Category category, int quantity) {
@@ -78,6 +79,16 @@ public class Item {
 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+	}
+
+
+	public int getItemID() {
+		return itemID;
+	}
+
+
+	public void setItemID(int itemID) {
+		this.itemID = itemID;
 	}
 
 }
