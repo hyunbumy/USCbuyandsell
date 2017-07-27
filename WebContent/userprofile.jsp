@@ -21,7 +21,7 @@
 		    	currId = store.getCurrUser().getUserID();
 		    else
 	    		currId = Integer.parseInt(temp);
-	    	User currUser = store.getUserProfileByID(currId);
+	    	User selectedUser = store.getUserProfileByID(currId);
     	%>
 	        <%!
             boolean validateSession(StoreDatabase store)
@@ -91,15 +91,15 @@
 		  <tr>
 		    <th rowspan="10">
 		    		<div class= "profileimage" id="profileimage">
-    					<img src="<%=currUser.getImage() %>"style="width:128px;height:128px;">
+    					<img src="<%=selectedUser.getImage() %>"style="width:128px;height:128px;">
     				</div>
 		    </th>
 		    <td>
 		    		<div class= "profileinfo" id="profileinfo">
-			    		Name: <%=currUser.getfName() %> <% currUser.getlName();%>
+			    		Name: <%=selectedUser.getfName() %> <% selectedUser.getlName();%>
 			    		<br>
 			    		<%
-					int roundedRating = (int) Math.round(currUser.getRating());
+					int roundedRating = (int) Math.round(selectedUser.getRating());
 					
 					%>
 					<% for(int i = 0; i < roundedRating; i++){ %>
@@ -110,14 +110,14 @@
 							<span>☆</span>
 					<% } %>
 					<br>
-					Phone: <%= " " + currUser.getPhoneNumber() + " " %>
+					Phone: <%= " " + selectedUser.getPhoneNumber() + " " %>
 					<br>
-			    	Email: <%= " " + currUser.getEmail() %>
+			    	Email: <%= " " + selectedUser.getEmail() %>
 			    	<br>
 				</div>
 		    </td>
 		    					<%
-						if(currUser != null && currUser.getUserID() == store.getCurrUser().getUserID()){
+						if(store.getCurrUser() != null && selectedUser.getUserID() == store.getCurrUser().getUserID()){
 					%>
 					<td>
 			    		<form action = "wishlist.jsp" >
