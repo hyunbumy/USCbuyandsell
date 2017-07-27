@@ -38,7 +38,7 @@ public class Register extends HttpServlet {
 		}
 		
 		// email not usc.edu
-		else if (!email.split("@")[1].equals("usc.edu")) {
+		else if (!email.split("@")[1].toLowerCase().equals("usc.edu")) {
 			request.setAttribute("error", "USC email required!");
 		}
 		else {

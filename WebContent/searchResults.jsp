@@ -7,10 +7,10 @@
 <html>
     <head>
         <%
-        Store store = (Store) request.getSession().getAttribute("store");
-        String searchTerm = (String) request.getSession().getAttribute("searchTerm");
-        Vector<Item> results = store.search(searchTerm);
-        HashMap<String,User> userMap = store.getUserMap();
+        StoreDatabase store = (StoreDatabase) session.getAttribute("store");
+        String searchTerm = (String) request.getAttribute("searchTerm");
+        String category = (String) request.getAttribute("category");
+        Vector<Item> results = store.search(searchTerm, category);
         %>
         
         <%!
@@ -49,14 +49,14 @@
                 #searchbar{
                     width: 100%;
                     margin-left:100px;
-                    height: 50px;
-                    font-size: 40pt;
+                    height: 20px;
+                    font-size: 90px;
                 }
                 #search{
                     width: 75%;
                 }
                 .searchinput{
-                    height: 35px;
+                    height: 20px;
                 }
                 #main{
                     margin-top: 50px;
@@ -114,7 +114,7 @@
 
         <!-- Add your site or application content here -->
        
-        <div id="login_header"></div>   
+        <div id="login_header">placeholder</div>   
 
         <%-- <!-- DISPLAY SEARCH RESULTS -->
         <h1>Results for: <%= searchTerm %></h1>
@@ -128,7 +128,7 @@
             }
         %> --%>
         
-        <br />
+        <br /><br/>
         <div id="searchbar">
                 <form name="search_form" action="search" method="GET">
                                     <select class="searchinput" name="category" value="all">
@@ -166,12 +166,12 @@
                                 </div>
                                 <div class="item_info">
                                         <div class="item_name">
-                                            <a href="individualitem.jsp?itemID=<%= item.getUniqueID()%>">
+                                            <a href="individualitem.jsp?itemID=<%= item.getItemID()%>">
                                                     <h2><%= item.getName()%></h2>
                                             </a>
                                     </div>
                                     <div class="seller_info">
-                                        <% User seller = userMap.get(item.getSellerID());%>
+                                        <% User seller = store.getUserProfileByID(item.getSellerID());%>
                                             <a href="userprofile.jsp?userID=<%= item.getSellerID()%>">BY <%= seller.getfName()%> <%= seller.getlName()%></a>
                                     </div>
                                     <div class="info">

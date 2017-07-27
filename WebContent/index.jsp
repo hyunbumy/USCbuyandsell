@@ -66,7 +66,7 @@
         	#title
         	{
         		color:#bd2031;
-        		font-size:100px;
+        		font-size:90px;
         		margin:0px;
         	}
         	
