@@ -162,7 +162,7 @@
                         <li class="item_list">
                             <div class="item_container">
                                 <div class="item_img">
-                                        <img src="<%= item.getImage()%>" width="200" height="200" alt="Product Image" />
+                                        <img src="<%= item.getImage()%>" width="200" height="200" alt="Product Image" border="3"/>
                                 </div>
                                 <div class="item_info">
                                         <div class="item_name">

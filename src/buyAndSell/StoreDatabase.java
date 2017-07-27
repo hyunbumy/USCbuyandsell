@@ -56,7 +56,6 @@ public class StoreDatabase {
 			if(rs.next()) {
 				// If true, there was a match, therefore correct login
 				String uname = rs.getString("uname");
-				String pword = rs.getString("pword");
 				String fname = rs.getString("fname");
 				String lname = rs.getString("lname");
 				String email = rs.getString("email");
@@ -73,7 +72,7 @@ public class StoreDatabase {
 //				System.out.println("Image: "+ image);
 //				System.out.println("UserID: "+ userID);
 				
-				User u = new User(fname, lname, email, phoneNum, uname, userID);
+				User u = new User(fname, lname, email, phoneNum, uname, userID, image);
 				StoreDatabase.currUser = u;
 				return true;
 			}
@@ -98,7 +97,7 @@ public class StoreDatabase {
 			String phoneNum, String image) {
 		
 		if (image == null || image.equals("")) {
-			image = null;
+			image = "img/default_profile.png";
 		}
 		
 		// Use hashing with salt for password when creating a new user
@@ -146,7 +145,7 @@ public class StoreDatabase {
 //					System.out.println("Image: "+ imageDB);
 //					System.out.println("UserID: "+ userID);
 					
-					User u = new User(fName, lName, email, phoneNum, username, userID);
+					User u = new User(fnameDB, lnameDB, emailDB, phoneNumDB, unameDB, userID, imageDB);
 					StoreDatabase.currUser = u;
 					return true;
 				}
@@ -176,7 +175,7 @@ public class StoreDatabase {
 			description = null;
 		}
 		if (image == null || image.equals("")) {
-			image = null;
+			image = "img/default_item.jpg";
 		}
 		
 		try {
@@ -287,7 +286,8 @@ public class StoreDatabase {
 					int itemId = rs.getInt("itemID");
 					float price = rs.getFloat("price");
 					Category cat = Category.valueOf(rs.getString("category"));
-					results.add(new Item(name, price, cat, quantity, itemId, sellerId));
+					String img = rs.getString("image");
+					results.add(new Item(name, price, cat, quantity, itemId, sellerId, img));
 				}
 			}
 			
@@ -317,7 +317,7 @@ public class StoreDatabase {
 				String imageDB = rs.getString("image");
 				int userID = rs.getInt("userID");
 				
-				User u = new User(fnameDB, lnameDB, emailDB, phoneNumDB, unameDB, userID);
+				User u = new User(fnameDB, lnameDB, emailDB, phoneNumDB, unameDB, userID, imageDB);
 				if (imageDB != null) {
 					u.setImage(imageDB);
 				}

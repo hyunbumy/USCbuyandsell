@@ -17,13 +17,14 @@ public class User extends Guest {
 	private Vector<Item> wishlist;
 	private Vector<Message> messages;
 	
-	public User(String fName, String lName, String email, String phoneNum, String username, int userID) {
+	public User(String fName, String lName, String email, String phoneNum, String username, int userID, String image) {
 		this.fName = fName;
 		this.lName = lName;
 		this.email = email;
 		this.phoneNumber = phoneNum;
 		this.username = username;
 		this.userID = userID;
+		this.image = image;
 		
 		this.wishlist = new Vector<Item>();
 		this.messages = new Vector<Message>();
