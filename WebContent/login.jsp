@@ -28,7 +28,7 @@
         
         <script>
         	function getHeader() {
-        		$("#header").load("logged_out_loginpage.html");
+        		$("#header").load("logged_out.html");
         	}
         </script>
         

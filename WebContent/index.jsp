@@ -10,13 +10,13 @@
 
 
     <%
-    StoreDatabase s;
+    StoreDatabase store;
     if (session.getAttribute("store") == null) {
-    	s = new StoreDatabase();
-    	session.setAttribute("store", s);
+    	store = new StoreDatabase();
+    	session.setAttribute("store", store);
     }
     else
-    	s = (StoreDatabase) session.getAttribute("store");
+    	store = (StoreDatabase) session.getAttribute("store");
 	
     Category[] allCategories = Category.values();
     
@@ -100,7 +100,7 @@
         </script>
     </head>
     
-    <%if (validateSession(s)) {%>
+    <%if (validateSession(store)) {%>
     <body onload="getHeader(true)">
     <%}
     else {

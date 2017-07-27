@@ -7,16 +7,24 @@
 <html>
     <head>
         <%
-        StoreDatabase store = (StoreDatabase) session.getAttribute("store");
+        StoreDatabase store;
+        if (session.getAttribute("store") == null) {
+        	store = new StoreDatabase();
+        	session.setAttribute("store", store);
+        }
+        else
+        	store = (StoreDatabase) session.getAttribute("store");
+    	
+        Category[] allCategories = Category.values();
         String searchTerm = (String) request.getAttribute("searchTerm");
         String category = (String) request.getAttribute("category");
         Vector<Item> results = store.search(searchTerm, category);
         %>
         
         <%!
-            boolean validateSession(HttpSession session)
+            boolean validateSession(StoreDatabase store)
             {
-                if (session.getAttribute("currUser") != null)
+                if (store.getCurrUser() != null)
                     return true;
                 else
                     return false;
@@ -101,7 +109,7 @@
         
     </head>
     
-    <%if (validateSession(session)) {%>
+    <%if (validateSession(store)) {%>
     <body onload="getHeader(true)">
     <%}
     else {
@@ -134,7 +142,6 @@
                                     <select class="searchinput" name="category" value="all">
                         <option value="all">All</option>
                             <%
-                            Category[] allCategories = Category.values();
                             for (int i = 0; i < allCategories.length; i++) {
                                 //formating the category names
                                 String catName = allCategories[i].toString();

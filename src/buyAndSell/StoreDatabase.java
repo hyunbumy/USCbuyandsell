@@ -309,7 +309,6 @@ public class StoreDatabase {
 					+ " WHERE " + "userID="+id+";");
 			if (rs.next()) {
 				String unameDB = rs.getString("uname");
-				String pwordDB = rs.getString("pword");
 				String fnameDB = rs.getString("fname");
 				String lnameDB = rs.getString("lname");
 				String emailDB = rs.getString("email");
@@ -318,14 +317,33 @@ public class StoreDatabase {
 				int userID = rs.getInt("userID");
 				
 				User u = new User(fnameDB, lnameDB, emailDB, phoneNumDB, unameDB, userID, imageDB);
-				if (imageDB != null) {
-					u.setImage(imageDB);
-				}
 				return u;
 			}
 		} catch (SQLException e) {
 			System.out.println("Search failure: " + e.getMessage());
 		}	
+		return null;
+	}
+	
+	//pass in an itemID and get back an Item object
+	public static Item getItemByID(int id) {
+		Statement st = connect();
+		ResultSet rs;
+		try {
+			rs = st.executeQuery("SELECT * FROM ItemsTable WHERE itemID="+id+";");
+			if (rs.next()) {
+				String name = rs.getString("title");
+				int quantity = rs.getInt("quantity");
+				int sellerId = rs.getInt("sellingUser");
+				int itemId = rs.getInt("itemID");
+				float price = rs.getFloat("price");
+				Category cat = Category.valueOf(rs.getString("category"));
+				String img = rs.getString("image");
+				return new Item(name, price, cat, quantity, itemId, sellerId, img);
+			}
+		} catch (SQLException e) {
+			System.out.println("Search failure: " + e.getMessage());
+		}
 		return null;
 	}
 	
