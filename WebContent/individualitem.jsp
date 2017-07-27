@@ -81,7 +81,15 @@
 			    		Quantity: <%=currItem.getQuantity() %>
 					</h3>
 					<br>
-					<h4>Description: <%=currItem.getDescription() %></h4>
+					<%
+						String desc;
+						if (currItem.getDescription() == null || currItem.getDescription().equals("")) {
+							desc = "";
+						}
+						else
+							desc = currItem.getDescription();
+					%>
+					<h4>Description: <%=desc %></h4>
 					
 					<a href="userprofile.jsp?userID=<%=currItem.getSellerID() %>">Seller Profile</a>
 					<br>
