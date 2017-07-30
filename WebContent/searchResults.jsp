@@ -52,14 +52,15 @@
                 }
                 #searchbar{
                     margin-left:100px;
-                    height: 20px;
+                    height: 30px;
                 }
                 #search{
                     width: 700px;
+                    height: 30px;
                 }
                 .searchinput{
-                    height: 20px;
-                    width: 50px;
+                    height: 30px;
+                    width: 80px;
                 }
                 #main{
                     margin-top: 50px;
