@@ -49,6 +49,8 @@ CREATE TABLE WishlistTable(
 	
     wishingUser INT(5) NOT NULL,
     itemID INT(6) NOT NULL,
+    wishlistID INT(5) PRIMARY KEY AUTO_INCREMENT,
+    
     
     FOREIGN KEY fk1(wishingUser) REFERENCES UserTable(userID),
     FOREIGN KEY fk2(itemID) REFERENCES ItemsTable(itemID)
@@ -60,7 +62,7 @@ CREATE TABLE WishlistMessage(
 	wishingUser INT(5) NOT NULL,
     itemID int(6) NOT NULL,
     isRead bool NOT NULL,
-    
+    wishlistID INT(5) PRIMARY KEY AUTO_INCREMENT,
     
 	FOREIGN KEY fk1(wishingUser) REFERENCES UserTable(userID),
 	FOREIGN KEY fk2(itemID) REFERENCES ItemsTable(itemID)
