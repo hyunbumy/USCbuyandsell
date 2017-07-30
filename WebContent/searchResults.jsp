@@ -9,12 +9,12 @@
         <%
         StoreDatabase store;
         if (session.getAttribute("store") == null) {
-        	store = new StoreDatabase();
-        	session.setAttribute("store", store);
+            store = new StoreDatabase();
+            session.setAttribute("store", store);
         }
         else
-        	store = (StoreDatabase) session.getAttribute("store");
-    	
+            store = (StoreDatabase) session.getAttribute("store");
+        
         Category[] allCategories = Category.values();
         String searchTerm = (String) request.getAttribute("searchTerm");
         String category = (String) request.getAttribute("category");
@@ -54,17 +54,19 @@
         
 
         <style>
+                #outter{
+                    width: 1000px;
+                }
                 #searchbar{
-                    width: 100%;
                     margin-left:100px;
                     height: 20px;
-                    font-size: 90px;
                 }
                 #search{
-                    width: 75%;
+                    width: 700px;
                 }
                 .searchinput{
                     height: 20px;
+                    width: 50px;
                 }
                 #main{
                     margin-top: 50px;
@@ -137,9 +139,10 @@
         %> --%>
         
         <br /><br/>
-        <div id="searchbar">
+        <div id="outter">
+            <div id="searchbar">
                 <form name="search_form" action="search" method="GET">
-                                    <select class="searchinput" name="category" value="all">
+                        <select class="searchinput" name="category" value="all">
                         <option value="all">All</option>
                             <%
                             for (int i = 0; i < allCategories.length; i++) {
@@ -153,48 +156,49 @@
                                 <%  
                             }
                             %>
-                    </select>
-                    <input class="searchinput" id="search" type="text" name="term" value="<%=searchTerm %>">
-                <input class="searchinput" type="submit" value="SEARCH">
-            </form>
-        </div>
-        
-        <div id="main">
-            <div id="result">
-                <ul>
-                    <% 
-                        for (int i=0; i<results.size(); i++){
-                            Item item = results.elementAt(i);
-                    %>
-                        <li class="item_list">
-                            <div class="item_container">
-                                <div class="item_img">
-                                        <img src="<%= item.getImage()%>" width="200" height="200" alt="Product Image" border="3"/>
+                        </select>
+                        <input class="searchinput" id="search" type="text" name="term" value="<%=searchTerm %>">
+                    <input class="searchinput" type="submit" value="SEARCH">
+                </form>
+            </div>
+            
+            <div id="main">
+                <div id="result">
+                    <ul>
+                        <% 
+                            for (int i=0; i<results.size(); i++){
+                                Item item = results.elementAt(i);
+                        %>
+                            <li class="item_list">
+                                <div class="item_container">
+                                    <div class="item_img">
+                                            <img src="<%= item.getImage()%>" width="200" height="200" alt="Product Image" border="3"/>
+                                    </div>
+                                    <div class="item_info">
+                                            <div class="item_name">
+                                                <a href="individualitem.jsp?itemID=<%= item.getItemID()%>">
+                                                        <h2><%= item.getName()%></h2>
+                                                </a>
+                                        </div>
+                                        <div class="seller_info">
+                                            <% User seller = store.getUserProfileByID(item.getSellerID());%>
+                                                <a href="userprofile.jsp?userID=<%= item.getSellerID()%>">BY <%= seller.getfName()%> <%= seller.getlName()%></a>
+                                        </div>
+                                        <div class="info">
+                                            <sup>$</sup>
+                                                <span><%= item.getPrice()%></span> <br />
+                                            <span style="color: red;"><%= item.getQuantity()%> left</span>
+                                        </div>
+                                    </div>
+                                    <div style="clear:both;"></div>
                                 </div>
-                                <div class="item_info">
-                                        <div class="item_name">
-                                            <a href="individualitem.jsp?itemID=<%= item.getItemID()%>">
-                                                    <h2><%= item.getName()%></h2>
-                                            </a>
-                                    </div>
-                                    <div class="seller_info">
-                                        <% User seller = store.getUserProfileByID(item.getSellerID());%>
-                                            <a href="userprofile.jsp?userID=<%= item.getSellerID()%>">BY <%= seller.getfName()%> <%= seller.getlName()%></a>
-                                    </div>
-                                    <div class="info">
-                                        <sup>$</sup>
-                                            <span><%= item.getPrice()%></span> <br />
-                                        <span style="color: red;"><%= item.getQuantity()%> left</span>
-                                    </div>
-                                </div>
-                                <div style="clear:both;"></div>
-                            </div>
-                        </li>
-                    <%
-                        }
-                    %>
+                            </li>
+                        <%
+                            }
+                        %>
                     </ul>
                 </div>
+            </div>
         </div>
     </body>
 </html>
