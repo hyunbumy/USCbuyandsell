@@ -64,17 +64,25 @@ public class StoreDatabase {
 				String image = rs.getString("image");
 				int userID = rs.getInt("userID");
 				
-//				System.out.println("Username: "+ uname);
-//				System.out.println("Password: "+ pword);
-//				System.out.println("First Name: "+ fname);
-//				System.out.println("Last Name: "+ lname);
-//				System.out.println("Email: "+ email);
-//				System.out.println("Phone Number: "+ phoneNum);
-//				System.out.println("Image: "+ image);
-//				System.out.println("UserID: "+ userID);
+				//check the WishlistTable
+				String query = "SELECT itemID FROM WishlistTable WHERE wishingUser="+userID;
+				rs = st.executeQuery(query);
+				//add the item id to this vector
+				Vector<Integer> itemIDs = new Vector<Integer>();
+				while (rs.next()) {
+					int itemID = rs.getInt("itemID");
+					itemIDs.add(itemID);
+				}	
 				
 				User u = new User(fname, lname, email, phoneNum, uname, userID, image);
 				StoreDatabase.currUser = u;
+				
+				//get the items and add to user wishlist
+				for (int i = 0; i < itemIDs.size(); i++) {
+					Item item = StoreDatabase.getItemByID(itemIDs.get(i));
+					u.addToWishlist(item);
+				}
+				
 				return true;
 			}
 		} catch (SQLException e) {
