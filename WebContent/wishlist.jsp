@@ -28,9 +28,9 @@
 		%>
 		
 		<%!
-	    	boolean validateSession(HttpSession session)
+	    	boolean validateSession()
 	    	{
-	    		if (session.getAttribute("currUser") != null)
+	    		if (StoreDatabase.getCurrUser() != null)
 	    			return true;
 	    		else
 	    			return false;
@@ -104,7 +104,7 @@
         
 	</head>
 	
-	<%if (validateSession(session)) {%>
+	<%if (validateSession()) {%>
     <body onload="getHeader(true)">
     <%}
     else {
