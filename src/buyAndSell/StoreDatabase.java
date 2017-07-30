@@ -29,7 +29,8 @@ public class StoreDatabase {
 		//establish database connection
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/USCbuyandsell?user=root&password=root");
+			//Connection conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/USCbuyandsell?user=root&password=root");
+			Connection conn = (Connection) getConnection("jdbc:mysql://localhost/USCbuyandsell?user=root&password=root");
 			Statement st = (Statement) conn.createStatement();
 			return st;
 		} catch(SQLException sqle) {
@@ -355,6 +356,27 @@ public class StoreDatabase {
 		}
 		return null;
 	}
+	
+	
+	public static void sendWishListMessage(int itemID) {
+		Statement st = connect();
+		
+		//add to the WishlistTable
+		String query = "INSERT INTO WishlistTable(wishingUser, itemID)\n";
+		query += "VALUES ("+currUser.getUserID() + ","+itemID+")";
+		try {
+			st.executeUpdate(query);
+			
+			//add to WishlistMessage
+			query = "INSERT INTO WishlistMessage(wishingUser, itemID, isRead)\n";
+			query += "VALUES ("+currUser.getUserID() + ","+itemID+ "," +false+")";
+			
+		} catch (SQLException e) {
+			System.out.println("Search failure: " + e.getMessage());
+		}	
+		
+	}
+	
 	
 	//the only getter the rest of the program should need
 	public static User getCurrUser() {
