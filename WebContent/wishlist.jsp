@@ -7,11 +7,24 @@
 <html>
 	<head>
 		<%
-		Store store = (Store) request.getSession().getAttribute("store");
-		String userID = request.getParameter("userID");
-		HashMap<String,User> userMap = store.getUserMap();
-		User user = userMap.get(userID);
-		Vector<Item> wishlist = user.getWishlist();
+		
+		/* StoreDatabase store;
+		if (session.getAttribute("store") == null) {
+            store = new StoreDatabase();
+            session.setAttribute("store", store);
+        }
+        else
+            store = (StoreDatabase) session.getAttribute("store"); */
+            
+		/* 
+		String userID = request.getParameter("userID"); */
+		
+		User user = StoreDatabase.getCurrUser();
+		Vector<Item> wishlist = user.getWishlist(); 
+		
+		// HashMap<String,User> userMap = store.getUserMap();
+		// User user = userMap.get(userID);
+		// Vector<Item> wishlist = user.getWishlist(); 
 		%>
 		
 		<%!
@@ -134,12 +147,15 @@
 						        </div>
 						        <div class="item_info">
 								    	<div class="item_name">
-							            	<a href="individualitem.jsp?itemID=<%= item.getUniqueID()%>">
+							            	<a href="individualitem.jsp?itemID=<%= item.getItemID()%>">
 							                		<h2><%= item.getName()%></h2>
 							        		</a>
 							        </div>
 								    <div class="seller_info">
-								        <% User seller = userMap.get(item.getSellerID());%>
+								        <% 
+								        		int sellerid = item.getSellerID();
+								        		User seller = StoreDatabase.getUserProfileByID(sellerid);
+								        %>
 								        	<a href="userprofile.jsp?userID=<%= item.getSellerID()%>">BY <%= seller.getfName()%> <%= seller.getlName()%></a>
 								    </div>
 								    <div class="info">
