@@ -29,7 +29,7 @@ public class StoreDatabase {
 		//establish database connection
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection conn = (Connection) DriverManager.getConnection("jdbc:mysql://buyandselldb.cphsc4421sco.us-east-2.rds.amazonaws.com/USCbuyandsell?user=root&password=uscbuyandsell");
+			Connection conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/USCbuyandsell?user=root&password=root");
 			Statement st = (Statement) conn.createStatement();
 			return st;
 		} catch(SQLException sqle) {
@@ -287,7 +287,10 @@ public class StoreDatabase {
 					float price = rs.getFloat("price");
 					Category cat = Category.valueOf(rs.getString("category"));
 					String img = rs.getString("image");
-					results.add(new Item(name, price, cat, quantity, itemId, sellerId, img));
+					String desc = rs.getString("description");
+					Item i = new Item(name,price,  cat,quantity, itemId, sellerId, img);
+					i.setDescription(desc);
+					results.add(i);
 				}
 			}
 			
@@ -339,7 +342,13 @@ public class StoreDatabase {
 				float price = rs.getFloat("price");
 				Category cat = Category.valueOf(rs.getString("category"));
 				String img = rs.getString("image");
-				return new Item(name, price, cat, quantity, itemId, sellerId, img);
+				String desc = rs.getString("description");
+				Item i = new Item(name,price,cat,quantity,itemId,sellerId, img);
+				if (!desc.equals("null"))
+					i.setDescription(desc);
+				else
+					i.setDescription("");
+				return i;
 			}
 		} catch (SQLException e) {
 			System.out.println("Search failure: " + e.getMessage());

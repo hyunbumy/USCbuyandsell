@@ -27,7 +27,7 @@ CREATE TABLE ItemsTable (
 	quantity INT(3) NOT NULL, -- on front end, if they don't enter a quantiy we must set it to 1
     description VARCHAR(100),
     itemID INT(6) PRIMARY KEY AUTO_INCREMENT,
-    
+    image VARCHAR(100),
     -- selling user is the auto-generated key from UserTable
 	FOREIGN KEY fk1(sellingUser) REFERENCES UserTable(userID)
 
