@@ -55,16 +55,17 @@ CREATE TABLE WishlistTable(
 
 );
 
-INSERT INTO UserTable (uname, pword, fname, lname, email, phoneNum)
-	VALUES ('jmilly', 'lab1', 'Jeff', 'Miller', 'jmiller@usc.edu', '978-257-5700'),
-					('ralfayez', 'root', 'Reem', 'Alfayez', 'alfayez@usc.edu', '123-456-7890');
+CREATE TABLE WishlistMessage(
 
+	wishingUser INT(5) NOT NULL,
+    itemID int(6) NOT NULL,
+    isRead bool NOT NULL,
+    
+    
+	FOREIGN KEY fk1(wishingUser) REFERENCES UserTable(userID),
+	FOREIGN KEY fk2(itemID) REFERENCES ItemsTable(itemID)
 
-INSERT INTO ItemsTable(sellingUser, title, price, category, quantity)
-	VALUES (1, '3 piece suit', 99.99, 'clothes', 1), 
-					(1, 'USC tie', 10, 'clothes', 5),
-                    (2, '5% in 201 grade', 999.99, 'idk', 1);
-                    
+);
 
 
                     
