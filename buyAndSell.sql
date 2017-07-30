@@ -37,7 +37,7 @@ CREATE TABLE ItemsTable (
 CREATE TABLE KeywordTable (
 	
 	keyword VARCHAR(20) NOT NULL,
-    itemID INT(6) NOT NULL,
+    itemID INT(6) PRIMARY KEY AUTO_INCREMENT,
     
     -- itemID from ItemsTable 
 	FOREIGN KEY fk1(itemID) REFERENCES ItemsTable(itemID)
