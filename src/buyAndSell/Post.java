@@ -15,8 +15,7 @@ public class Post extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		StoreDatabase s = (StoreDatabase) request.getSession().getAttribute("store");
-		
+				
 		String name = request.getParameter("itemname");
 		Float price = Float.parseFloat(request.getParameter("price"));
 		String cate = request.getParameter("category");
@@ -46,7 +45,7 @@ public class Post extends HttpServlet {
 		
 		// Call sell item
 		// Then redirect to homepage
-		s.sellItem(name, price, category, quantity, desc, image);
+		StoreDatabase.sellItem(name, price, category, quantity, desc, image);
 		
 		request.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
 	}

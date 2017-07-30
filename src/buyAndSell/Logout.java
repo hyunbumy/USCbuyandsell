@@ -16,9 +16,7 @@ public class Logout extends HttpServlet {
 	private static final long serialVersionUID = 1L;
   
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		StoreDatabase s = (StoreDatabase) session.getAttribute("store");
-		s.logout();
+		StoreDatabase.logout();
 		request.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
 	}
 

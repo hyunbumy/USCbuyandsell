@@ -7,24 +7,17 @@
 <html>
     <head>
         <%
-        StoreDatabase store;
-        if (session.getAttribute("store") == null) {
-            store = new StoreDatabase();
-            session.setAttribute("store", store);
-        }
-        else
-            store = (StoreDatabase) session.getAttribute("store");
-        
+
         Category[] allCategories = Category.values();
         String searchTerm = (String) request.getAttribute("searchTerm");
         String category = (String) request.getAttribute("category");
-        Vector<Item> results = store.search(searchTerm, category);
+        Vector<Item> results = StoreDatabase.search(searchTerm, category);
         %>
         
         <%!
-            boolean validateSession(StoreDatabase store)
+            boolean validateSession()
             {
-                if (store.getCurrUser() != null)
+                if (StoreDatabase.getCurrUser() != null)
                     return true;
                 else
                     return false;
@@ -111,7 +104,7 @@
         
     </head>
     
-    <%if (validateSession(store)) {%>
+    <%if (validateSession()) {%>
     <body onload="getHeader(true)">
     <%}
     else {
@@ -181,7 +174,7 @@
                                                 </a>
                                         </div>
                                         <div class="seller_info">
-                                            <% User seller = store.getUserProfileByID(item.getSellerID());%>
+                                            <% User seller = StoreDatabase.getUserProfileByID(item.getSellerID());%>
                                                 <a href="userprofile.jsp?userID=<%= item.getSellerID()%>">BY <%= seller.getfName()%> <%= seller.getlName()%></a>
                                         </div>
                                         <div class="info">

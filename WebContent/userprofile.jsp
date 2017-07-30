@@ -6,27 +6,20 @@
 <%@page import="buyAndSell.*" %>
 	<head>
 		    <%
-		    StoreDatabase store;
-		    if (session.getAttribute("store") == null) {
-		    	store = new StoreDatabase();
-		    	session.setAttribute("store", store);
-		    }
-		    else
-		    	store = (StoreDatabase) session.getAttribute("store");
-			
+
 		    Category[] allCategories = Category.values();
 		    String temp = request.getParameter("userID");
 		    int currId;
 		    if (temp == null || temp.equals(""))
-		    	currId = store.getCurrUser().getUserID();
+		    	currId = StoreDatabase.getCurrUser().getUserID();
 		    else
 	    		currId = Integer.parseInt(temp);
-	    	User selectedUser = store.getUserProfileByID(currId);
+	    	User selectedUser = StoreDatabase.getUserProfileByID(currId);
     	%>
 	        <%!
-            boolean validateSession(StoreDatabase store)
+            boolean validateSession()
             {
-                if (store.getCurrUser() != null)
+                if (StoreDatabase.getCurrUser() != null)
                     return true;
                 else
                     return false;
@@ -73,7 +66,7 @@
             }
 		</script>
 	</head>
-    <%if (validateSession(store)) {%>
+    <%if (validateSession()) {%>
     <body onload="getHeader(true)">
     <%}
     else {
@@ -117,7 +110,7 @@
 				</div>
 		    </td>
 		    					<%
-						if(store.getCurrUser() != null && selectedUser.getUserID() == store.getCurrUser().getUserID()){
+						if(StoreDatabase.getCurrUser() != null && selectedUser.getUserID() == StoreDatabase.getCurrUser().getUserID()){
 					%>
 					<td>
 			    		<form action = "wishlist.jsp" >

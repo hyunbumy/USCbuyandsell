@@ -5,23 +5,15 @@
 <head>
 <%@ page import="buyAndSell.*" %>
     <%
-    StoreDatabase store;
-    if (session.getAttribute("store") == null) {
-    	store = new StoreDatabase();
-    	session.setAttribute("store", store);
-    }
-    else
-    	store = (StoreDatabase) session.getAttribute("store");
-	
     Category[] allCategories = Category.values();
     
     int currItemId = Integer.parseInt(request.getParameter("itemID"));
-	Item currItem = store.getItemByID(currItemId);
+	Item currItem = StoreDatabase.getItemByID(currItemId);
     %>
         <%!
-            boolean validateSession(StoreDatabase store)
+            boolean validateSession()
             {
-                if (store.getCurrUser() != null)
+                if (StoreDatabase.getCurrUser() != null)
                     return true;
                 else
                     return false;
@@ -58,7 +50,7 @@
                 }
         </script>
 </head>
-    <%if (validateSession(store)) {%>
+    <%if (validateSession()) {%>
     <body onload="getHeader(true)">
     <%}
     else {
@@ -94,7 +86,7 @@
 					<a href="userprofile.jsp?userID=<%=currItem.getSellerID() %>">Seller Profile</a>
 					<br>
 					<%
-						if(store.getCurrUser() != null && store.getCurrUser().getUserID() == currItem.getSellerID()){
+						if(StoreDatabase.getCurrUser() != null && StoreDatabase.getCurrUser().getUserID() == currItem.getSellerID()){
 					%>
 						<form action = "editindividualitem.jsp"	>
 							<button type= "submit">Edit Item</button>

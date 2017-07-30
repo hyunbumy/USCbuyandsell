@@ -10,22 +10,14 @@
 
 
     <%
-    StoreDatabase store;
-    if (session.getAttribute("store") == null) {
-    	store = new StoreDatabase();
-    	session.setAttribute("store", store);
-    }
-    else
-    	store = (StoreDatabase) session.getAttribute("store");
-	
     Category[] allCategories = Category.values();
     
     %>
 
     <%!
-    	boolean validateSession(StoreDatabase store)
+    	boolean validateSession()
     	{
-    		if (store.getCurrUser() != null)
+    		if (StoreDatabase.getCurrUser() != null)
     			return true;
     		else
     			return false;
@@ -100,7 +92,7 @@
         </script>
     </head>
     
-    <%if (validateSession(store)) {%>
+    <%if (validateSession()) {%>
     <body onload="getHeader(true)">
     <%}
     else {
