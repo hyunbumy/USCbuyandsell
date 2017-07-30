@@ -18,7 +18,6 @@ public class Register extends HttpServlet {
        
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		StoreDatabase s = (StoreDatabase) request.getSession().getAttribute("store");
 		String next = "/register.jsp";
 		
 		String fname = request.getParameter("fname");
@@ -46,15 +45,15 @@ public class Register extends HttpServlet {
 		}
 		
 		if (isValidated) {
-		//attempt to create the user 
-		if (s.createUser(username, password, fname, lname, email, phoneNum, image)) {
-			//forwarding to the home page- may want to find out where they came from and send them back there
-			next = "/index.jsp";
-		}
-		//failed
-		else {
-			request.setAttribute("error", "The username "+username+" already exists in our system");
-		}
+			//attempt to create the user 
+			if (StoreDatabase.createUser(username, password, fname, lname, email, phoneNum, image)) {
+				//forwarding to the home page- may want to find out where they came from and send them back there
+				next = "/index.jsp";
+			}
+			//failed
+			else {
+				request.setAttribute("error", "The username "+username+" already exists in our system");
+			}
 		}
 		RequestDispatcher dispatch = request.getServletContext().getRequestDispatcher(next);
 		dispatch.forward(request, response);
