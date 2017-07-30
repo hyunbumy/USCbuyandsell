@@ -3,6 +3,7 @@ package buyAndSell;
 public abstract class Message {
 
 	String msg;
+	String title;
 	Item item;
 	boolean isRead = false;
 	
