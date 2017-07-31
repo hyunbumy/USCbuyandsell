@@ -8,5 +8,7 @@ public class WishlistMessage extends Message {
 		this.title = "Someone is interested in your "+ item.getName();
 		this.msg = StoreDatabase.getCurrUser().getfName() + " added your " + item.getName()
 				+ " to their Wishlist!";
+		
 	}
+	
 }

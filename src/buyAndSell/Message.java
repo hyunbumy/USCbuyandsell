@@ -5,6 +5,9 @@ public abstract class Message {
 	String msg;
 	String title;
 	Item item;
+	String date;
+	int messageId;
+	
 	boolean isRead = false;
 	
 	public String getMsg() {
@@ -24,6 +27,24 @@ public abstract class Message {
 	}
 	public void setRead(boolean isRead) {
 		this.isRead = isRead;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
+	public int getMessageId() {
+		return messageId;
+	}
+	public void setMessageId(int messageId) {
+		this.messageId = messageId;
 	}
 	
 	

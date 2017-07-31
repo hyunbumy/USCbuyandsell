@@ -366,7 +366,7 @@ public class StoreDatabase {
 	}
 	
 	
-	public static void sendWishListMessage(int itemID) {
+	public static boolean sendWishListMessage(int itemID) {
 		Statement st = connect();
 		
 		//add to the WishlistTable
@@ -378,11 +378,21 @@ public class StoreDatabase {
 			//add to WishlistMessage
 			query = "INSERT INTO WishlistMessage(wishingUser, itemID, isRead)\n";
 			query += "VALUES ("+currUser.getUserID() + ","+itemID+ "," +false+")";
-			
+			return true;
 		} catch (SQLException e) {
 			System.out.println("Search failure: " + e.getMessage());
 		}	
-		
+		return false;
+	}
+	
+	public static boolean deleteUser(int userID) {
+		return true;
+	}
+	public static boolean deleteItem(int itemID) {
+		return true;
+	}
+	public static boolean deleteMessage(int messageID) {
+		return true;
 	}
 	
 	
