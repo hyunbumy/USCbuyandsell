@@ -1,5 +1,7 @@
 package buyAndSell;
 
+import java.util.Date;
+
 public abstract class Message {
 
 	String msg;
@@ -7,6 +9,11 @@ public abstract class Message {
 	Item item;
 	String date;
 	int messageId;
+	
+	public Message() {
+		Date d = new Date();
+		this.date = d.toString();
+	}
 	
 	boolean isRead = false;
 	
