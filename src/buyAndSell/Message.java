@@ -9,13 +9,15 @@ public abstract class Message {
 	Item item;
 	String date;
 	int messageId;
+	boolean isRead;
 	
 	public Message() {
 		Date d = new Date();
 		this.date = d.toString();
+		this.isRead = false;
 	}
 	
-	boolean isRead = false;
+	
 	
 	public String getMsg() {
 		return msg;
