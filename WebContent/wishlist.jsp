@@ -89,6 +89,13 @@
         			margin: 10px;
         			margin-bottom: 30px;
         		}
+        		
+        		.removeButton{
+                    background-color: transparent;
+                    color: #868686;
+                    width: 150px;
+                    border: none;
+                }
         </style>
         
         <script>
@@ -98,6 +105,11 @@
 	        		else
 		        		$("#login_header").load("logged_out.html");
 	        	}
+	        	
+	        	function hide(index){
+             	var x = document.getElementsByClassName("item_list");
+				x[index].style.display = "none";
+                }
         </script>
     
     
@@ -164,6 +176,12 @@
 							        		<span><%= item.getPrice()%></span> <br />
 										<span style="color: red;"><%= item.getQuantity()%> left</span>
 									</div>
+									<br /><br /><br />
+                                    <div class="remove">
+                                        <button onclick="hide(<%= i%>)" class="removeButton">
+                                        	<u>Remove from Wishlist</u>
+                                        </button>
+                                    </div>
 								</div>
 								<div style="clear:both;"></div>
 							</div>
