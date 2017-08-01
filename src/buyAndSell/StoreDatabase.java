@@ -454,7 +454,22 @@ public class StoreDatabase {
 	
 	public static boolean markAsSold(int itemID)
 	{
-		
+		Item curr = getItemByID(itemID);
+		curr.setQuantity(curr.getQuantity()-1);
+		// If quantity is 0, remove from the database
+		if (curr.getQuantity() == 0)
+			deleteItem(itemID);
+		// Update the db with remaining quantity
+		else
+		{
+			Statement st = connect();
+			try {
+				st.executeUpdate("");
+			} catch (SQLException e) {
+				
+			}
+		}
+		return false;
 	}
 	
 
