@@ -18,10 +18,14 @@ public class MarkSold extends HttpServlet {
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int itemId = Integer.parseInt(request.getParameter("itemID"));
-		if (StoreDatabase.markAsSold(itemId))
+		if (StoreDatabase.markAsSold(itemId)) {
 			request.setAttribute("marked", "Item has been sold!");
-		else
+			
+		}
+			
+		else {
 			request.setAttribute("marked", "Something went wrong!");
+		}
 		RequestDispatcher dispatch = request.getServletContext().getRequestDispatcher("/messagedisplay.jsp");
 		dispatch.forward(request, response);
 	}
