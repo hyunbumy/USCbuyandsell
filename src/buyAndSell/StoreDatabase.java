@@ -538,8 +538,7 @@ public class StoreDatabase {
 				buyerId = rs.getInt("wishingUser");
 				sellerId = rs.getInt("sellingUser");
 				StoreDatabase.currUser.addMessage(new WishlistMessage(item, time, date, wishlistID, sellerId, buyerId));
-			}	
-				
+			}			
 			
 			query = "SELECT * FROM RatingMessage WHERE ratedUser="+userID;
 
@@ -558,6 +557,43 @@ public class StoreDatabase {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static Message getMessageByID(int messageID, String type) {
+		Statement st = connect();
+		String query = "SELECT * FROM "+type+"Table";
+		ResultSet rs;
+		try {
+			rs = st.executeQuery(query);
+			if (rs.next()) {
+				if (type.equals("Rating")) {
+					int itemID = rs.getInt("itemID");
+					int ratedUserID = rs.getInt("ratedUserID");
+					String time = rs.getString("sentTime");
+					String date = rs.getString("sentDate");
+					int ratingID = rs.getInt("ratingID");
+					Item item = StoreDatabase.getItemByID(itemID);
+					return new RatingMessage(item, time, date, ratingID, StoreDatabase.currUser.getUserID(), ratedUserID);
+				}
+				else if (type.equals("Wishlist")) {
+					int itemID = rs.getInt("itemID");
+					String time = rs.getString("sentTime");
+					String date = rs.getString("sentDate");
+					int wishlistID = rs.getInt("wishlistID");
+					Item item = StoreDatabase.getItemByID(itemID);
+					int buyerId = rs.getInt("wishingUser");
+					int sellerId = rs.getInt("sellingUser");
+					return new WishlistMessage(item, time, date, wishlistID, sellerId, buyerId);
+				}
+				else {
+					System.out.println("FUCKKKK");
+				}
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public static void addRating(int ratedUserID, int rating) {
