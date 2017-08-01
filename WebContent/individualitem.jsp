@@ -91,11 +91,13 @@
 						<form action = "editindividualitem.jsp"	>
 							<button type= "submit">Edit Item</button>
 						</form>
-					<% }else{ %>
+					<% }else {
+							if (currItem.getQuantity() != 0) {
+					%>
 						<form action = "createWishlist" method="GET">
 							<button type="submit" name="itemID" value="<%=currItemId%>">Contact Seller</button>
 						</form>
-					<% } %>
+					<% }} %>
 							    <%
 						if(request.getAttribute("added") != null) {
 					%>

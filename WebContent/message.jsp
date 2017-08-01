@@ -57,14 +57,11 @@
                 }
         </script>		
 	</head>
-    <%if (validateSession()) {%>
     <body onload="getHeader(true)">
-    <%}
-    else {
-    %>
-    <body onload="getHeader(false)">
-    <%} %>
+    
+    	<div id="login_header">placeholder <br/><br/><br/></div>
 		
+		<br/><br/>
 		<h1>Message</h1>
 		<% 
             	User user = StoreDatabase.getCurrUser();
