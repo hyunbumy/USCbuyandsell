@@ -72,8 +72,9 @@
                 }
 
                 #delete{
-                    width: 50px;
+                    width: 60px;
                     float: right;
+                    background-color: transparent;
                 }
                 #notread{
                 		font-weight: bold;
