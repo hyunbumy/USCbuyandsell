@@ -196,6 +196,7 @@
                 
                 <% 
                 		User user = StoreDatabase.getCurrUser();
+                        StoreDatabase.loadMessages(user.getuserID);
                 		Vector<Message> messages = user.getMessages();
                 %>
                 
