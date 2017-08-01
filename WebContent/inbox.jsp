@@ -218,12 +218,11 @@
 							String ifread = "notread";
 							if (isread)
 								ifread = "read";
-                            request.getSession().setAttribute("theMessage", message);
 					%>
 							<li class="list <%= type%>">
 								<input class="tocheck" type="checkbox"> 
 		                    		<a class="<%= ifread%>" 
-		                    			href="message.jsp">
+		                    			href="message.jsp?type=<%=type%>&messageID=<%=message.getMessageId()%>">
 		                    			<%= message.getTitle()%>
 		                    		</a>
 		                    		<span class="date"><%= message.getDate()%></span>

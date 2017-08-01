@@ -6,6 +6,15 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+        <%!
+            boolean validateSession()
+            {
+                if (StoreDatabase.getCurrUser() != null)
+                    return true;
+                else
+                    return false;
+            }
+        %>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Insert title here</title>
 	
@@ -69,15 +78,58 @@
 		.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
 		.rating > input:checked ~ label:hover ~ label { color: #FFED85;  } 
 	</style>
-</head>
-<body>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>A Message</title>
+        <link href="nav.css" rel="stylesheet" type="text/css">
+        <link href="main.css" rel="stylesheet" type="text/css">
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+        <!-- Place favicon.ico in the root directory -->
 
+        <!-- Link stylesheets-->
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link href="css/nav.css" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Cinzel" rel="stylesheet">
+        
+        <!-- Load js files-->
+        <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+        <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.12.0.min.js"><\/script>')</script>
+        <script src="js/plugins.js"></script>
+        <script src="js/main.js"></script>
+		
+		
+		<style>
+		</style>
+		
+		
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		
+        <script>
+                function getHeader(valid) {
+                    if (valid)
+                        $("#login_header").load("logged_in.html");
+                    else
+                        $("#login_header").load("logged_out.html");
+                }
+        </script>	
+    <body onload="getHeader(true)">
+    
+    	<div id="login_header">placeholder <br/><br/><br/></div>
+		
+		<br/><br/>
+		<h1>Message</h1>
 		<% 
         		User user = StoreDatabase.getCurrUser();
-
+			String type = request.getParameter("type");
+			int messageId = Integer.parseInt(request.getParameter("messageID"));
+			Message message = StoreDatabase.getMessageByID(messageId, type);
         %>
 		<% 
-			Message message = (Message) session.getAttribute("theMessage"); 
+
 			//set message as read once opened	
 			message.setRead(true);
 			//display title, message, and date
