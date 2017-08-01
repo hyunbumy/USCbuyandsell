@@ -20,7 +20,7 @@
 		String userID = request.getParameter("userID"); */
 		
 		User user = StoreDatabase.getCurrUser();
-		StoreDatabase.loadWishlist(user.getuserID);
+		StoreDatabase.loadWishlist(user.getUserID());
 		Vector<Item> wishlist = user.getWishlist(); 
 		
 		// HashMap<String,User> userMap = store.getUserMap();
