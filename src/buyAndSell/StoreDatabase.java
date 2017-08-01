@@ -490,25 +490,19 @@ public class StoreDatabase {
 	public static boolean markAsSold(int itemID)
 	{
 		Item curr = getItemByID(itemID);
+		if (curr.getQuantity() > 1)
+			return false;
 		curr.setQuantity(curr.getQuantity()-1);
-		// If quantity is 0, remove from the database
-		if (curr.getQuantity() == 0)
-		{
-			deleteItem(itemID);
-			return true;
-		}
+
 		// Update the db with remaining quantity
-		else
-		{
-			Statement st = connect();
-			try {
-				st.executeUpdate("UPDATE ItemsTable SET quantity="+curr.getQuantity()
-						+ " WHERE itemID="+itemID+";");
-				return true;
-			} catch (SQLException e) {
-				System.out.println("markAsSold: "+e.getMessage());
-				return false;
-			}
+		Statement st = connect();
+		try {
+			st.executeUpdate("UPDATE ItemsTable SET quantity="+curr.getQuantity()
+					+ " WHERE itemID="+itemID+";");
+			return true;
+		} catch (SQLException e) {
+			System.out.println("markAsSold: "+e.getMessage());
+			return false;
 		}
 	}
 	
