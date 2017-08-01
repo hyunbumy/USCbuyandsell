@@ -65,6 +65,7 @@ CREATE TABLE WishlistMessage(
     itemID int(6) NOT NULL,
     isRead bool NOT NULL,
     sentTime VARCHAR (100), 
+    sentDate VARCHAR(100), 
     wishlistID INT(5) PRIMARY KEY AUTO_INCREMENT,
     
 	FOREIGN KEY fk1(wishingUser) REFERENCES UserTable(userID),

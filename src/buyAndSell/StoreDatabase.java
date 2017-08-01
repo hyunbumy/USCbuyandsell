@@ -381,14 +381,17 @@ public class StoreDatabase {
 			st.executeUpdate(query);
 			
 			//get time
-			String time;
-			String pattern = "hh:mm:ss:a";
-			SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-			time = simpleDateFormat.format(new Date());
+			String time, date;
+			String timePattern = "hh:mm:ss:a";
+			String datePattern = "MM:dd:yyyy";
+			SimpleDateFormat sdfTime = new SimpleDateFormat(timePattern);
+			SimpleDateFormat sdfDate = new SimpleDateFormat(datePattern);
+			time = sdfTime.format(new Date());
+			date = sdfDate.format(new Date());
 			
 			//add to WishlistMessage
-			query = "INSERT INTO WishlistMessage(wishingUser, itemID, isRead, sentTime)\n";
-			query += "VALUES ("+currUser.getUserID() + ","+itemID+ "," +false+", \'"+time+"\'"+")";
+			query = "INSERT INTO WishlistMessage(wishingUser, itemID, isRead, sentTime, sentDate)\n";
+			query += "VALUES ("+currUser.getUserID() + ","+itemID+ "," +false+", \'"+time+"\'"+", \'"+date+"\')";
 			st.execute(query);
 			
 			return true;
