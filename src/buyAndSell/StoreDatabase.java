@@ -535,7 +535,7 @@ public class StoreDatabase {
 	public static boolean markAsSold(int itemID)
 	{
 		Item curr = getItemByID(itemID);
-		if (curr.getQuantity() > 1)
+		if (curr.getQuantity() < 1)
 			return false;
 		curr.setQuantity(curr.getQuantity()-1);
 

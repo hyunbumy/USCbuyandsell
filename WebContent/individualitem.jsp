@@ -67,7 +67,13 @@
 		    </th>
 		    <td>
 		    		<div class= "generaliteminfo" id="generaliteminfo">
-			    		<h2><%= currItem.getName() %></h2>
+			    		<h2>
+			    		<%if (currItem.getQuantity() ==0){%>
+			    			<del><%= currItem.getName() %></del>
+			    		<%}else { %>
+			    		<%= currItem.getName() %>
+			    		<%} %>
+			    		</h2>
 			    		<br>
 			    		<h3>Price: <%= currItem.getPrice() %> <br>
 			    		Quantity: <%=currItem.getQuantity() %>
