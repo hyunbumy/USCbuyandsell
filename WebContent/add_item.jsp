@@ -73,9 +73,9 @@
 					<li><a href="#">Account</a>
 
 						<ul>
-							<li><a href="wishlist">Profile</a></li>
-					        <li><a href="wishlist">Wishlist</a></li>
-					        <li><a href="inbox.html">Inbox</a></li>
+							<li><a href="userprofile.jsp">Profile</a></li>
+					        <li><a href="wishlist.jsp">Wishlist</a></li>
+					        <li><a href="inbox.jsp">Inbox</a></li>
 					        <li><a href="add_item.jsp">Add Item</a></li>
 					    </ul>
 					</li>
