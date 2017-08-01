@@ -18,10 +18,14 @@ public class createWishlist extends HttpServlet {
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int currItemId = Integer.parseInt(request.getParameter("itemID"));
-		StoreDatabase.sendWishListMessage(currItemId);
 		String next = "/individualitem.jsp?itemID="+currItemId;
 		if (StoreDatabase.getCurrUser() == null)
 			next = "/login.jsp";
+		else
+		{
+			StoreDatabase.sendWishListMessage(currItemId);
+			request.setAttribute("added", "Item added to your Wishlist!");
+		}
 		RequestDispatcher dispatch = request.getServletContext().getRequestDispatcher(next);
 		dispatch.forward(request, response);
 	}

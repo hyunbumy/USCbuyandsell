@@ -17,8 +17,9 @@ import com.mysql.jdbc.Statement;
 
 public class StoreDatabase {
 	
-	private static User currUser;
-		
+	private static User currUser = null;
+	
+	// I don't think this constructor is actually being called
 	public StoreDatabase (){
 		//set currUser to null
 		StoreDatabase.setCurrUser(null);

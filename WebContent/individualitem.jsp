@@ -92,11 +92,15 @@
 							<button type= "submit">Edit Item</button>
 						</form>
 					<% }else{ %>
-						<form action = "createWishlist">
-							
-							<input type="submit" value="Contact Seller">
+						<form action = "createWishlist" method="GET">
+							<button type="submit" name="itemID" value="<%=currItemId%>">Contact Seller</button>
 						</form>
 					<% } %>
+					<%
+						if(request.getAttribute("added") != null) {
+					%>
+					<%=request.getAttribute("added") %>
+					<%} %>
 				</div>
 		    </td>
 		  </tr>
