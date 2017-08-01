@@ -361,8 +361,19 @@ public class StoreDatabase {
 	public static boolean sendWishListMessage(int itemID) {
 		Statement st = connect();
 		
+		// Check for duplicate in the Wishlist
+		String query = "SELECT * FROM WishlistTable WHERE wishingUser="+currUser.getUserID()
+					+" AND itemID="+itemID+";";
+		try {
+			if(st.executeQuery(query).next())
+				// Returns false if item already in the user's wishlist
+				return false;			
+		} catch (SQLException e) {
+			System.out.println("Wishlist failure: "+e.getMessage());
+		}
+		
 		//add to the WishlistTable
-		String query = "INSERT INTO WishlistTable(wishingUser, itemID)\n";
+		query = "INSERT INTO WishlistTable(wishingUser, itemID)\n";
 		query += "VALUES ("+currUser.getUserID() + ","+itemID+")";
 		try {
 			st.executeUpdate(query);

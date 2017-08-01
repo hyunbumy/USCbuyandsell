@@ -23,8 +23,10 @@ public class createWishlist extends HttpServlet {
 			next = "/login.jsp";
 		else
 		{
-			StoreDatabase.sendWishListMessage(currItemId);
-			request.setAttribute("added", "Item added to your Wishlist!");
+			if (StoreDatabase.sendWishListMessage(currItemId))
+				request.setAttribute("added", "Item added to your Wishlist!");
+			else
+				request.setAttribute("added", "Item already exists in your Wishlist");
 		}
 		RequestDispatcher dispatch = request.getServletContext().getRequestDispatcher(next);
 		dispatch.forward(request, response);

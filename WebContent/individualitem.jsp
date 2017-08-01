@@ -96,7 +96,7 @@
 							<button type="submit" name="itemID" value="<%=currItemId%>">Contact Seller</button>
 						</form>
 					<% } %>
-					<%
+							    <%
 						if(request.getAttribute("added") != null) {
 					%>
 					<%=request.getAttribute("added") %>
