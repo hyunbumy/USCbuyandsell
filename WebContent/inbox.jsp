@@ -23,6 +23,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>My Inbox</title>
+        <link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet">
         <link href="nav.css" rel="stylesheet" type="text/css">
         <link href="main.css" rel="stylesheet" type="text/css">
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -60,7 +61,9 @@
                 }
 
                 h1{
-                    margin-left: 50px;
+                    margin-top: 80px;
+                    margin-left: 80px;
+                    font-family: 'Lora', serif;
                 }
 
                 #sort{
@@ -172,6 +175,7 @@
         <div id="login_header">placeholder</div>   
 
         <div id="outter">
+
             <h1> My Inbox </h1>
             <br /> <br />
             
