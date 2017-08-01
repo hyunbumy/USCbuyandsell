@@ -474,7 +474,7 @@ public class StoreDatabase {
 		Statement st = connect();
 		ResultSet rs;
 		//check the WishlistMessage
-		String query = "SELECT wishingUser, itemID, sentTime, sentDate FROM WishlistMessage WHERE sellingUser="+userID+";";
+		String query = "SELECT * FROM WishlistMessage WHERE sellingUser="+userID+";";
 		try {
 			rs = st.executeQuery(query);
 			
@@ -483,10 +483,13 @@ public class StoreDatabase {
 				String time = rs.getString("sentTime");
 				String date = rs.getString("sentDate");
 				Item item = StoreDatabase.getItemByID(itemID);
-				StoreDatabase.currUser.addMessage(new WishlistMessage(item, time, date));
+				int buyerId = rs.getInt("wishingUser");
+				int sellerId = rs.getInt("sellingUser");
+				int wishlistId = rs.getInt("wishlistID");
+				StoreDatabase.currUser.addMessage(new WishlistMessage(item, time, date, wishlistId, sellerId, buyerId));
 			}	
 				
-			query = "SELECT ratedUser, itemID, sentTime, sentDate FROM RatingMessage WHERE ratedUser="+userID;
+			/*query = "SELECT ratedUser, itemID, sentTime, sentDate FROM RatingMessage WHERE ratedUser="+userID;
 			rs = st.executeQuery(query);
 			
 			while (rs.next()) {
@@ -495,7 +498,7 @@ public class StoreDatabase {
 				String date = rs.getString("sentDate");
 				Item item = StoreDatabase.getItemByID(itemID);
 				StoreDatabase.currUser.addMessage(new RatingMessage(item, time, date));
-			}
+			}*/
 			
 			
 		} catch (SQLException e) {

@@ -12,12 +12,17 @@ public class Message {
 	String time;
 	boolean isRead;
 	int messageId;
+	int sellerId;
+	int buyerId;
 	
-	public Message(Item item, String time, String date) {
+	public Message(Item item, String time, String date, int messageId, int sellerId, int buyerId) {
 		//get time and date
 		this.isRead = false;
 		this.time = time;
 		this.date = date;
+		this.messageId = messageId;
+		this.sellerId = sellerId;
+		this.buyerId = buyerId;
 	}
 	
 	
@@ -67,7 +72,19 @@ public class Message {
 		this.time = time;
 	}
 	
+	public int getSellerId() {
+		return sellerId;
+	}
+	public void setSellerId(int sellerId) {
+		this.sellerId = sellerId;
+	}
 	
+	public int getBuyerId() {
+		return buyerId;
+	}
+	public void setBuyerId(int buyerId) {
+		this.buyerId = buyerId;
+	}
 	
 	
 }
