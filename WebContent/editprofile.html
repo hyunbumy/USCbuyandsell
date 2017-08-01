@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Edit Profile</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+        <!-- Place favicon.ico in the root directory -->
+
+        <!-- Link stylesheets-->
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link href="css/nav.css" rel="stylesheet" type="text/css">
+		<link href="https://fonts.googleapis.com/css?family=Cinzel" rel="stylesheet">
+        
+        <!-- Load js files-->
+        <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+        <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.12.0.min.js"><\/script>')</script>
+        <script src="js/plugins.js"></script>
+        <script src="js/main.js"></script>
+	
+		<style>
+			#loadnetprofileinfo {text-align:center;}
+			#outercontainer
+			{
+				margin-right: auto;
+				margin-left: auto;
+				background-color: white;
+			}
+	</style>
+	
+	<script>
+        function getHeader() {
+	      	$("#login_header").load("logged_out.html");
+    	}
+    </script>
+</head>
+	<body onload="getHeader()">
+	<div id="login_header">Placeholder<br/><br/></div>
+	<div id= "loadnewprofileimage">
+		
+	</div>
+	<div id = "loadnewprofileinfo">
+	
+		<form action = "editprofile" method="POST" >
+			First name: <input type="text" name="newfname" placeholder="name" >
+			<br>
+			Last Name: <input type="text" name="newlname" placeholder="name" >
+			<br>
+			Choose new profile image: <input type="url" name="newprofileimage" placeholder="find image url" >
+			<br>
+			Username: <input type="text" name="newusername" placeholder="name" >
+			<br>
+			Phone: <input type="tel" name="newuserphone" placeholder="phone" >
+			<br>
+			Password: <input type= "password" name="userpassword" id="userpassword" placeholder="Password"  >
+			<br>
+			Confirm Password: <input type= "password" name="confirm_password" id="confirm_password" placeholder="Confirm Password" >
+			<br>
+			<button type="submit" onclick ="validatePassword()">Save info</button>
+		</form>
+		
+
+	</div>
+	<div id="loadsaveprofile">
+
+	
+	</div>
+
+</body>
+</html>
