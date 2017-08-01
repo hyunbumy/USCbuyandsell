@@ -22,9 +22,11 @@
 		
 		%>
 		
-		<h1><%= message.getTitle()%></h1>
+		<b><h1><%= message.getTitle()%></h1></b>
+		<br>
 		
-		<h5><%= message.getDate() %> </h5>
+	
+		<h5><%= message.getDate() %> at <%= message.getTime() %> </h5> 
 		
 		<br><br><br>
 		
