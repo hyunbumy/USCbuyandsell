@@ -6,6 +6,8 @@ import java.nio.charset.StandardCharsets;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Vector;
@@ -378,9 +380,17 @@ public class StoreDatabase {
 		try {
 			st.executeUpdate(query);
 			
+			//get time
+			String time;
+			String pattern = "hh:mm:ss:a";
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+			time = simpleDateFormat.format(new Date());
+			
 			//add to WishlistMessage
-			query = "INSERT INTO WishlistMessage(wishingUser, itemID, isRead)\n";
-			query += "VALUES ("+currUser.getUserID() + ","+itemID+ "," +false+")";
+			query = "INSERT INTO WishlistMessage(wishingUser, itemID, isRead, sentTime)\n";
+			query += "VALUES ("+currUser.getUserID() + ","+itemID+ "," +false+", \'"+time+"\'"+")";
+			st.execute(query);
+			
 			return true;
 		} catch (SQLException e) {
 			System.out.println("Search failure: " + e.getMessage());

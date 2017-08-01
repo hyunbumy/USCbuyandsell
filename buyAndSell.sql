@@ -26,8 +26,9 @@ CREATE TABLE ItemsTable (
     category VARCHAR(20) NOT NULL, -- need to decide if I want to make a CategoriesTable to store the ones we have
 	quantity INT(3) NOT NULL, -- on front end, if they don't enter a quantiy we must set it to 1
     description VARCHAR(100),
+	image VARCHAR(100),
     itemID INT(6) PRIMARY KEY AUTO_INCREMENT,
-    image VARCHAR(100),
+
     -- selling user is the auto-generated key from UserTable
 	FOREIGN KEY fk1(sellingUser) REFERENCES UserTable(userID)
 
@@ -37,7 +38,8 @@ CREATE TABLE ItemsTable (
 CREATE TABLE KeywordTable (
 	
 	keyword VARCHAR(20) NOT NULL,
-    itemID INT(6) PRIMARY KEY AUTO_INCREMENT,
+    itemID INT(6) NOT NULL,
+    keywordID INT(6) PRIMARY KEY AUTO_INCREMENT,
     
     -- itemID from ItemsTable 
 	FOREIGN KEY fk1(itemID) REFERENCES ItemsTable(itemID)
@@ -62,6 +64,7 @@ CREATE TABLE WishlistMessage(
 	wishingUser INT(5) NOT NULL,
     itemID int(6) NOT NULL,
     isRead bool NOT NULL,
+    sentTime VARCHAR (100), 
     wishlistID INT(5) PRIMARY KEY AUTO_INCREMENT,
     
 	FOREIGN KEY fk1(wishingUser) REFERENCES UserTable(userID),

@@ -69,7 +69,7 @@
 		<% 
             	User user = StoreDatabase.getCurrUser();
         		Vector<Message> messages = user.getMessages();
-        		Message message = session.getAttribute("theMessage");
+        		Message message = (Message) session.getAttribute("theMessage");
         		
         %>
 
@@ -82,7 +82,7 @@
 	
 			<div id="deletebutton">
 		    		<form action = "inbox.jsp" >
-					<button type="submit" onclick="<%= deletWishlisteMessage(message.getMessageID())%>">Delete</button><br>		
+					<button type="submit">Delete</button><br>		
 				</form>
 			</div>
 		</div>		
