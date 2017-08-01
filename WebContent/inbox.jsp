@@ -204,18 +204,20 @@
                 <ul>
 					<% 
 						for (int i=messages.size(); i>0; i--){
-							Message message = messages.elementAt(i);
+                            String type = null;
+                            Message message = null;
+                            if (messages.elementAt(i-1) instanceof RatingMessage){
+                                type = "Rating";
+                                message = (RatingMessage)messages.elementAt(i-1);
+                            }
+                            else if (messages.elementAt(i-1) instanceof WishlistMessage){
+                                type = "Wishlist";
+                                message = (WishlistMessage)messages.elementAt(i-1);
+                            }
 							boolean isread = message.isRead();
 							String ifread = "notread";
 							if (isread)
 								ifread = "read";
-							String type = null;
-							if (message instanceof RatingMessage){
-								type = "Rating";
-							}
-							else if (message instanceof WishlistMessage){
-								type = "Wishlist";
-							}
                             request.getSession().setAttribute("theMessage", message);
 					%>
 							<li class="list <%= type%>">
