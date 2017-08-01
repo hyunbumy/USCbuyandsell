@@ -409,7 +409,7 @@ public class StoreDatabase {
 		return false;
 	}
 	
-	public static boolean deletWishlisteMessage(int messageID) {
+	public static boolean deleteWishlistMessage(int messageID) {
 		Statement st = connect();
 		String query = "DELETE FROM WishlistMessage WHERE messageID="+messageID;
 		try {
@@ -453,7 +453,7 @@ public class StoreDatabase {
 		
 		Statement st = connect();
 		ResultSet rs;
-		//check the WishlistTable
+		//check the WishlistMessage
 		String query = "SELECT wishingUser, itemID, sentTime, sentDate FROM WishlistMessage WHERE wishingUser="+userID;
 		try {
 			rs = st.executeQuery(query);
