@@ -92,8 +92,9 @@
 							<button type= "submit">Edit Item</button>
 						</form>
 					<% }else{ %>
-						<form action = "inbox.jsp" onsubmit="saveInfo()" >
-							<button type="submit"> Contact Seller</button>
+						<form action = "createWishlist">
+							
+							<input type="submit" value="Contact Seller">
 						</form>
 					<% } %>
 				</div>
