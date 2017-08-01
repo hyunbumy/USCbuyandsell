@@ -402,6 +402,44 @@ public class StoreDatabase {
 		return false;
 	}
 	
+	public static void sendRatingMessage(int wishlistMsgID) {
+		Statement st = connect();
+		
+		// Check get buying and selling user id from wishlist message
+		String query = "SELECT wishingUser, itemID, sellingUser FROM WishlistMessage WHERE wishlistID=" +wishlistMsgID+";";
+		ResultSet rs;
+		try {
+			rs = st.executeQuery(query);
+			if(rs.next()) {
+				int buyingUserID = rs.getInt("wishingUser");
+				int itemID = rs.getInt("itemID");
+				int sellingUserID = rs.getInt("sellingUser");
+				
+				//"send" rating message to each user by adding to RatingMessage
+				//get time and date
+				String time, date;
+				String timePattern = "hh:mm:ss:a";
+				String datePattern = "MM:dd:yyyy";
+				SimpleDateFormat sdfTime = new SimpleDateFormat(timePattern);
+				SimpleDateFormat sdfDate = new SimpleDateFormat(datePattern);
+				time = sdfTime.format(new Date());
+				date = sdfDate.format(new Date());
+				
+				
+				query = "INSERT INTO RatingMessage(ratedUser, itemID, isRead, sentTime, sentDate)\n";
+				query += "VALUES("+buyingUserID+","+itemID+","+false+","+time+","+date+"),";
+				query += "("+buyingUserID+","+itemID+","+false+","+time+","+date+");";
+			}
+				
+				
+				
+		} catch (SQLException e) {
+			System.out.println("Wishlist failure: "+e.getMessage());
+		}
+		
+		
+	}
+	
 	public static boolean deleteUser(int userID) {
 		Statement st = connect();
 		String query = "DELETE FROM UserTable WHERE userID="+userID;
@@ -474,6 +512,7 @@ public class StoreDatabase {
 		Statement st = connect();
 		ResultSet rs;
 		//check the WishlistMessage
+		
 		String query = "SELECT * FROM WishlistMessage WHERE sellingUser="+userID+";";
 		try {
 			rs = st.executeQuery(query);
@@ -482,6 +521,7 @@ public class StoreDatabase {
 				int itemID = rs.getInt("itemID");
 				String time = rs.getString("sentTime");
 				String date = rs.getString("sentDate");
+				int wishlistID = rs.getInt("wishlistID");
 				Item item = StoreDatabase.getItemByID(itemID);
 				int buyerId = rs.getInt("wishingUser");
 				int sellerId = rs.getInt("sellingUser");
@@ -490,6 +530,7 @@ public class StoreDatabase {
 			}	
 				
 			/*query = "SELECT ratedUser, itemID, sentTime, sentDate FROM RatingMessage WHERE ratedUser="+userID;
+
 			rs = st.executeQuery(query);
 			
 			while (rs.next()) {
