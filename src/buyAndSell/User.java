@@ -148,6 +148,9 @@ public class User extends Guest {
 		this.messages.clear();
 	}
 	
+	public void removeWishlist() {
+		this.wishlist.clear();
+	}
 	
 	
 	

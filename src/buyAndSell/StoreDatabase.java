@@ -409,7 +409,7 @@ public class StoreDatabase {
 		return false;
 	}
 	
-	public static boolean deletWishlisteMessage(int messageID) {
+	public static boolean deleteWishlistMessage(int messageID) {
 		Statement st = connect();
 		String query = "DELETE FROM WishlistMessage WHERE messageID="+messageID;
 		try {
@@ -422,6 +422,9 @@ public class StoreDatabase {
 	}
 	
 	public static void loadWishlist(int userID) {
+		//clear current wishlist vector
+		StoreDatabase.currUser.removeWishlist();
+		
 		Statement st = connect();
 		ResultSet rs;
 		//check the WishlistTable
@@ -453,7 +456,7 @@ public class StoreDatabase {
 		
 		Statement st = connect();
 		ResultSet rs;
-		//check the WishlistTable
+		//check the WishlistMessage
 		String query = "SELECT wishingUser, itemID, sentTime, sentDate FROM WishlistMessage WHERE wishingUser="+userID;
 		try {
 			rs = st.executeQuery(query);
@@ -465,7 +468,32 @@ public class StoreDatabase {
 				Item item = StoreDatabase.getItemByID(itemID);
 				StoreDatabase.currUser.addMessage(new WishlistMessage(item, time, date));
 			}	
+				
+			query = "SELECT ratedUser, itemID, sentTime, sentDate FROM RatingMessage WHERE ratedUser="+userID;
+			rs = st.executeQuery(query);
 			
+			while (rs.next()) {
+				int itemID = rs.getInt("itemID");
+				String time = rs.getString("sentTime");
+				String date = rs.getString("sentDate");
+				Item item = StoreDatabase.getItemByID(itemID);
+				StoreDatabase.currUser.addMessage(new RatingMessage(item, time, date));
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void addRating(int ratedUserID, int rating) {
+		Statement st = connect();
+
+		//add rating to RatingTable
+		String query = "INSERT INTO UserRatings(userID, rating)\n";
+		query += "VALUES("+ratedUserID+", "+rating+")";
+		try {
+			st.execute(query);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
