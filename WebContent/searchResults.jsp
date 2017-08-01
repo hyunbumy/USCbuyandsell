@@ -171,7 +171,11 @@
                                     <div class="item_info">
                                             <div class="item_name">
                                                 <a href="individualitem.jsp?itemID=<%= item.getItemID()%>">
-                                                        <h2><%= item.getName()%></h2>
+                                                        <h2><%if (item.getQuantity() ==0){%>
+			    			<del><%= item.getName() %></del>
+			    		<%}else { %>
+			    		<%= item.getName() %>
+			    		<%} %></h2>
                                                 </a>
                                         </div>
                                         <div class="seller_info">
