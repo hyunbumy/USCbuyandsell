@@ -145,15 +145,6 @@ public class StoreDatabase {
 					String imageDB = rs.getString("image");
 					int userID = rs.getInt("userID");
 					
-//					System.out.println("Username: "+ unameDB);
-//					System.out.println("Password: "+ pwordDB);
-//					System.out.println("First Name: "+ fnameDB);
-//					System.out.println("Last Name: "+ lnameDB);
-//					System.out.println("Email: "+ emailDB);
-//					System.out.println("Phone Number: "+ phoneNumDB);
-//					System.out.println("Image: "+ imageDB);
-//					System.out.println("UserID: "+ userID);
-					
 					User u = new User(fnameDB, lnameDB, emailDB, phoneNumDB, unameDB, userID, imageDB);
 					StoreDatabase.currUser = u;
 					return true;
@@ -366,7 +357,7 @@ public class StoreDatabase {
 	}
 	
 	
-	public static void sendWishListMessage(int itemID) {
+	public static boolean sendWishListMessage(int itemID) {
 		Statement st = connect();
 		
 		//add to the WishlistTable
@@ -378,11 +369,47 @@ public class StoreDatabase {
 			//add to WishlistMessage
 			query = "INSERT INTO WishlistMessage(wishingUser, itemID, isRead)\n";
 			query += "VALUES ("+currUser.getUserID() + ","+itemID+ "," +false+")";
-			
+			return true;
 		} catch (SQLException e) {
 			System.out.println("Search failure: " + e.getMessage());
 		}	
-		
+		return false;
+	}
+	
+	public static boolean deleteUser(int userID) {
+		Statement st = connect();
+		String query = "DELETE FROM UserTable WHERE userID="+userID;
+		try {
+			st.execute(query);
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public static boolean deleteItem(int itemID) {
+		Statement st = connect();
+		String query = "DELETE FROM ItemsTable WHERE itemID="+itemID;
+		try {
+			st.execute(query);
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public static boolean deletWishlisteMessage(int messageID) {
+		Statement st = connect();
+		String query = "DELETE FROM WishlistMessage WHERE messageID="+messageID;
+		try {
+			st.execute(query);
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 	
 	
