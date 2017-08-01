@@ -452,5 +452,10 @@ public class StoreDatabase {
 		StoreDatabase.currUser = currUser;
 	}
 	
+	public static boolean markAsSold(int itemID)
+	{
+		
+	}
+	
 
 }
