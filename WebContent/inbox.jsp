@@ -210,11 +210,12 @@
 							else if (message instanceof WishlistMessage){
 								type = "Wishlist";
 							}
+                            request.getSession().setAttribute("theMessage", message);
 					%>
 							<li class="list <%= type%>">
 								<input class="tocheck" type="checkbox"> 
 		                    		<a class="<%= ifread%>" 
-		                    			href="message.jsp?messageID=<%= message.getMessageId()%>">
+		                    			href="message.jsp">
 		                    			<%= message.getTitle()%>
 		                    		</a>
 		                    		<span class="date"><%= message.getDate()%></span>
