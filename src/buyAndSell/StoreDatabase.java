@@ -377,7 +377,7 @@ public class StoreDatabase {
 		
 		//add to the WishlistTable
 		query = "INSERT INTO WishlistTable(wishingUser, itemID)\n";
-		query += "VALUES ("+currUser.getUserID() + ","+itemID+")";
+		query += "VALUES ("+currUser.getUserID() + ","+itemID+");";
 		try {
 			st.executeUpdate(query);
 			
@@ -391,8 +391,8 @@ public class StoreDatabase {
 			date = sdfDate.format(new Date());
 			
 			//add to WishlistMessage
-			query = "INSERT INTO WishlistMessage(wishingUser, itemID, isRead, sentTime, sentDate)\n";
-			query += "VALUES ("+currUser.getUserID() + ","+itemID+ "," +false+", \'"+time+"\'"+", \'"+date+"\')";
+			query = "INSERT INTO WishlistMessage(wishingUser, itemID, isRead, sentTime, sentDate, sellingUser)\n";
+			query += "VALUES ("+currUser.getUserID() + ","+itemID+ "," +false+", \'"+time+"\'"+", \'"+date+"\',"+getItemByID(itemID).getSellerID()+")";
 			st.execute(query);
 			
 			return true;
@@ -474,7 +474,7 @@ public class StoreDatabase {
 		Statement st = connect();
 		ResultSet rs;
 		//check the WishlistMessage
-		String query = "SELECT wishingUser, itemID, sentTime, sentDate FROM WishlistMessage WHERE wishingUser="+userID;
+		String query = "SELECT wishingUser, itemID, sentTime, sentDate FROM WishlistMessage WHERE sellingUser="+userID+";";
 		try {
 			rs = st.executeQuery(query);
 			
