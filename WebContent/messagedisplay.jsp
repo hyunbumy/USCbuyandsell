@@ -16,7 +16,7 @@
             }
         %>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Insert title here</title>
+	<title>MessageDisplay</title>
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	
@@ -123,7 +123,7 @@
 		<br/><br/>
 		<h1>Message</h1>
 		<% 
-        		User user = StoreDatabase.getCurrUser();
+        	User user = StoreDatabase.getCurrUser();
 			String type = request.getParameter("type");
 			int messageId = Integer.parseInt(request.getParameter("messageID"));
 			Message message = StoreDatabase.getMessageByID(messageId, type);

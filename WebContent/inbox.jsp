@@ -222,7 +222,7 @@
 							<li class="list <%= type%>">
 								<input class="tocheck" type="checkbox"> 
 		                    		<a class="<%= ifread%>" 
-		                    			href="message.jsp?type=<%=type%>&messageID=<%=message.getMessageId()%>">
+		                    			href="messagedisplay.jsp?type=<%=type%>&messageID=<%=message.getMessageId()%>">
 		                    			<%= message.getTitle()%>
 		                    		</a>
 		                    		<span class="date"><%= message.getDate()%></span>

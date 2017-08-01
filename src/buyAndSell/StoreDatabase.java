@@ -561,14 +561,14 @@ public class StoreDatabase {
 	
 	public static Message getMessageByID(int messageID, String type) {
 		Statement st = connect();
-		String query = "SELECT * FROM "+type+"Table";
+		String query = "SELECT * FROM "+type+"Message";
 		ResultSet rs;
 		try {
 			rs = st.executeQuery(query);
 			if (rs.next()) {
 				if (type.equals("Rating")) {
 					int itemID = rs.getInt("itemID");
-					int ratedUserID = rs.getInt("ratedUserID");
+					int ratedUserID = rs.getInt("ratedUser");
 					String time = rs.getString("sentTime");
 					String date = rs.getString("sentDate");
 					int ratingID = rs.getInt("ratingID");

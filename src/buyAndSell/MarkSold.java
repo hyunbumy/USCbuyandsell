@@ -26,7 +26,7 @@ public class MarkSold extends HttpServlet {
 		else {
 			request.setAttribute("marked", "Something went wrong!");
 		}
-		RequestDispatcher dispatch = request.getServletContext().getRequestDispatcher("/messagedisplay.jsp");
+		RequestDispatcher dispatch = request.getServletContext().getRequestDispatcher("/inbox.jsp");
 		dispatch.forward(request, response);
 	}
 
