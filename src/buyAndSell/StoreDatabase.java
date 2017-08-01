@@ -70,6 +70,24 @@ public class StoreDatabase {
 				User u = new User(fname, lname, email, phoneNum, uname, userID, image);
 				StoreDatabase.currUser = u;
 				
+				//check the ratings table
+				String query = "SELECT rating from UserRatings WHERE userID="+userID;
+				Vector<Integer> ratings = new Vector<Integer>();
+				rs = st.executeQuery(query);
+				while (rs.next()) {
+					int rating = rs.getInt("rating");
+					ratings.add(rating);
+				}
+				//average it
+				float total = (float) 0.0;
+				float numRatings = (float) ratings.size();
+				for (int i = 0; i < ratings.size(); i++) {
+					total += (float) ratings.get(i);
+				}
+				float average = total/numRatings;
+				u.setRating(average);
+				
+				
 				return true;
 			}
 		} catch (SQLException e) {
@@ -124,7 +142,6 @@ public class StoreDatabase {
 						+ " WHERE " + "uname=\'"+username+"\';");
 				if (rs.next()) {
 					String unameDB = rs.getString("uname");
-					String pwordDB = rs.getString("pword");
 					String fnameDB = rs.getString("fname");
 					String lnameDB = rs.getString("lname");
 					String emailDB = rs.getString("email");
@@ -409,7 +426,7 @@ public class StoreDatabase {
 		return false;
 	}
 	
-	public static boolean deletWishlisteMessage(int messageID) {
+	public static boolean deleteWishlistMessage(int messageID) {
 		Statement st = connect();
 		String query = "DELETE FROM WishlistMessage WHERE messageID="+messageID;
 		try {
@@ -422,6 +439,9 @@ public class StoreDatabase {
 	}
 	
 	public static void loadWishlist(int userID) {
+		//clear current wishlist vector
+		StoreDatabase.currUser.removeWishlist();
+		
 		Statement st = connect();
 		ResultSet rs;
 		//check the WishlistTable
@@ -453,7 +473,7 @@ public class StoreDatabase {
 		
 		Statement st = connect();
 		ResultSet rs;
-		//check the WishlistTable
+		//check the WishlistMessage
 		String query = "SELECT wishingUser, itemID, sentTime, sentDate FROM WishlistMessage WHERE wishingUser="+userID;
 		try {
 			rs = st.executeQuery(query);
@@ -465,7 +485,32 @@ public class StoreDatabase {
 				Item item = StoreDatabase.getItemByID(itemID);
 				StoreDatabase.currUser.addMessage(new WishlistMessage(item, time, date));
 			}	
+				
+			query = "SELECT ratedUser, itemID, sentTime, sentDate FROM RatingMessage WHERE ratedUser="+userID;
+			rs = st.executeQuery(query);
 			
+			while (rs.next()) {
+				int itemID = rs.getInt("itemID");
+				String time = rs.getString("sentTime");
+				String date = rs.getString("sentDate");
+				Item item = StoreDatabase.getItemByID(itemID);
+				StoreDatabase.currUser.addMessage(new RatingMessage(item, time, date));
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void addRating(int ratedUserID, int rating) {
+		Statement st = connect();
+
+		//add rating to RatingTable
+		String query = "INSERT INTO UserRatings(userID, rating)\n";
+		query += "VALUES("+ratedUserID+", "+rating+")";
+		try {
+			st.execute(query);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -490,25 +535,19 @@ public class StoreDatabase {
 	public static boolean markAsSold(int itemID)
 	{
 		Item curr = getItemByID(itemID);
+		if (curr.getQuantity() > 1)
+			return false;
 		curr.setQuantity(curr.getQuantity()-1);
-		// If quantity is 0, remove from the database
-		if (curr.getQuantity() == 0)
-		{
-			deleteItem(itemID);
-			return true;
-		}
+
 		// Update the db with remaining quantity
-		else
-		{
-			Statement st = connect();
-			try {
-				st.executeUpdate("UPDATE ItemsTable SET quantity="+curr.getQuantity()
-						+ " WHERE itemID="+itemID+";");
-				return true;
-			} catch (SQLException e) {
-				System.out.println("markAsSold: "+e.getMessage());
-				return false;
-			}
+		Statement st = connect();
+		try {
+			st.executeUpdate("UPDATE ItemsTable SET quantity="+curr.getQuantity()
+					+ " WHERE itemID="+itemID+";");
+			return true;
+		} catch (SQLException e) {
+			System.out.println("markAsSold: "+e.getMessage());
+			return false;
 		}
 	}
 	

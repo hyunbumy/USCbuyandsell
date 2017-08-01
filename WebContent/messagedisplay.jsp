@@ -31,8 +31,18 @@
 		<br><br><br>
 		
 		<h5><%=message.getMsg() %></h5>
-		
-		
+		<%
+			if (message instanceof WishlistMessage) {
+		%>
+		<form action="markassold" method="GET">
+		  <button type="submit" name="itemID" value="<%=message.getItem().getItemID() %>">
+		  Sell Item to this user!
+		  </button>
+		</form>
+		<%if (request.getAttribute("marked") != null) { %>
+		<%=request.getAttribute("marked") %>
+		<%} %>
+		<%} %>
 		
 
 </body>
