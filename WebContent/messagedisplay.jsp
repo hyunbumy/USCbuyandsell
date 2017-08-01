@@ -98,7 +98,7 @@
 			if (message instanceof WishlistMessage) {
 		%>
 		<form action="markassold" method="GET">
-		  <button type="submit" name="itemID" value="<%=message.getItem().getItemID() %>">
+		  <button type="submit" name="messageID" value="<%=message.getMessageId() %>">
 		  Sell Item to this user!
 		  </button>
 		</form>

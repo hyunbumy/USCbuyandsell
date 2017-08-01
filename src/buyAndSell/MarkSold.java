@@ -17,8 +17,8 @@ public class MarkSold extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int itemId = Integer.parseInt(request.getParameter("itemID"));
-		if (StoreDatabase.markAsSold(itemId)) {
+		int messageID = Integer.parseInt(request.getParameter("messageID"));
+		if (StoreDatabase.sendRatingMessage(messageID)) {
 			request.setAttribute("marked", "Item has been sold!");
 			
 		}
