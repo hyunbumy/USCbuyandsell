@@ -448,6 +448,9 @@ public class StoreDatabase {
 	}
 	
 	public static void loadMessages(int userID) {
+		//reset the messages
+		StoreDatabase.currUser.removeAllMessages();
+		
 		Statement st = connect();
 		ResultSet rs;
 		//check the WishlistTable
@@ -460,7 +463,7 @@ public class StoreDatabase {
 				String time = rs.getString("sentTime");
 				String date = rs.getString("sentDate");
 				Item item = StoreDatabase.getItemByID(itemID);
-				StoreDatabase.currUser.addMessage(new Message(item, time, date));
+				StoreDatabase.currUser.addMessage(new WishlistMessage(item, time, date));
 			}	
 			
 			

@@ -144,6 +144,10 @@ public class User extends Guest {
 		this.userID = userID;
 	}
 	
+	public void removeAllMessages() {
+		this.messages.clear();
+	}
+	
 	
 	
 	
