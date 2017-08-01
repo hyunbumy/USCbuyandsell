@@ -1,20 +1,23 @@
 package buyAndSell;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public abstract class Message {
+public class Message {
 
 	String msg;
 	String title;
 	Item item;
 	String date;
-	int messageId;
+	String time;
 	boolean isRead;
+	int messageId;
 	
-	public Message() {
-		Date d = new Date();
-		this.date = d.toString();
+	public Message(Item item, String time, String date) {
+		//get time and date
 		this.isRead = false;
+		this.time = time;
+		this.date = date;
 	}
 	
 	
@@ -55,6 +58,15 @@ public abstract class Message {
 	public void setMessageId(int messageId) {
 		this.messageId = messageId;
 	}
+
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
+	}
+	
 	
 	
 	

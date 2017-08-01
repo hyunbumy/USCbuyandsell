@@ -67,24 +67,8 @@ public class StoreDatabase {
 				String image = rs.getString("image");
 				int userID = rs.getInt("userID");
 				
-				//check the WishlistTable
-				String query = "SELECT itemID FROM WishlistTable WHERE wishingUser="+userID;
-				rs = st.executeQuery(query);
-				//add the item id to this vector
-				Vector<Integer> itemIDs = new Vector<Integer>();
-				while (rs.next()) {
-					int itemID = rs.getInt("itemID");
-					itemIDs.add(itemID);
-				}	
-				
 				User u = new User(fname, lname, email, phoneNum, uname, userID, image);
 				StoreDatabase.currUser = u;
-				
-				//get the items and add to user wishlist
-				for (int i = 0; i < itemIDs.size(); i++) {
-					Item item = StoreDatabase.getItemByID(itemIDs.get(i));
-					u.addToWishlist(item);
-				}
 				
 				return true;
 			}
@@ -380,7 +364,7 @@ public class StoreDatabase {
 		try {
 			st.executeUpdate(query);
 			
-			//get time
+			//get time and date
 			String time, date;
 			String timePattern = "hh:mm:ss:a";
 			String datePattern = "MM:dd:yyyy";
@@ -435,6 +419,54 @@ public class StoreDatabase {
 			e.printStackTrace();
 		}
 		return false;
+	}
+	
+	public static void loadWishlist(int userID) {
+		Statement st = connect();
+		ResultSet rs;
+		//check the WishlistTable
+		String query = "SELECT itemID FROM WishlistTable WHERE wishingUser="+userID;
+		try {
+			rs = st.executeQuery(query);
+			
+			//add the item id to this vector
+			Vector<Integer> itemIDs = new Vector<Integer>();
+			while (rs.next()) {
+				int itemID = rs.getInt("itemID");
+				itemIDs.add(itemID);
+			}	
+			
+			//get the items and add to user wishlist
+			for (int i = 0; i < itemIDs.size(); i++) {
+				Item item = StoreDatabase.getItemByID(itemIDs.get(i));
+				StoreDatabase.currUser.addToWishlist(item);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void loadMessages(int userID) {
+		Statement st = connect();
+		ResultSet rs;
+		//check the WishlistTable
+		String query = "SELECT wishingUser, itemID, sentTime, sentDate FROM WishlistMessage WHERE wishingUser="+userID;
+		try {
+			rs = st.executeQuery(query);
+			
+			while (rs.next()) {
+				int itemID = rs.getInt("itemID");
+				String time = rs.getString("sentTime");
+				String date = rs.getString("sentDate");
+				Item item = StoreDatabase.getItemByID(itemID);
+				StoreDatabase.currUser.addMessage(new Message(item, time, date));
+			}	
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	
