@@ -70,6 +70,24 @@ public class StoreDatabase {
 				User u = new User(fname, lname, email, phoneNum, uname, userID, image);
 				StoreDatabase.currUser = u;
 				
+				//check the ratings table
+				String query = "SELECT rating from UserRatings WHERE userID="+userID;
+				Vector<Integer> ratings = new Vector<Integer>();
+				rs = st.executeQuery(query);
+				while (rs.next()) {
+					int rating = rs.getInt("rating");
+					ratings.add(rating);
+				}
+				//average it
+				float total = (float) 0.0;
+				float numRatings = (float) ratings.size();
+				for (int i = 0; i < ratings.size(); i++) {
+					total += (float) ratings.get(i);
+				}
+				float average = total/numRatings;
+				u.setRating(average);
+				
+				
 				return true;
 			}
 		} catch (SQLException e) {
@@ -124,7 +142,6 @@ public class StoreDatabase {
 						+ " WHERE " + "uname=\'"+username+"\';");
 				if (rs.next()) {
 					String unameDB = rs.getString("uname");
-					String pwordDB = rs.getString("pword");
 					String fnameDB = rs.getString("fname");
 					String lnameDB = rs.getString("lname");
 					String emailDB = rs.getString("email");
