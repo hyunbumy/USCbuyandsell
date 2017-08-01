@@ -36,6 +36,27 @@ public class Post extends HttpServlet {
 		case "Movie":
 			category = Category.MOVIE;
 			break;
+		case "Car":
+			category = Category.CAR;
+			break;
+		case "Furniture":
+			category = Category.FURNITURE;
+			break;
+		case "Music":
+			category = Category.MUSIC;
+			break;
+		case "Appliance":
+			category = Category.APPLIANCE;
+			break;
+		case "Housing":
+			category = Category.HOUSING;
+			break;
+		case "Jewlery":
+			category = Category.JEWLERY;
+			break;
+		case "Other":
+			category = Category.OTHER;
+			break;
 		default:
 			category = null;
 		}
