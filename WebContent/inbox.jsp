@@ -197,7 +197,7 @@
                 <br />
                 <ul>
 					<% 
-						for (int i=0; i<messages.size(); i++){
+						for (int i=messages.size(); i>0; i--){
 							Message message = messages.elementAt(i);
 							boolean isread = message.isRead();
 							String ifread = "notread";
