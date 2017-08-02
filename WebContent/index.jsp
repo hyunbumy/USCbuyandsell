@@ -81,7 +81,7 @@
         		box-sizing:border-box;
         	}
             #search{
-                    width: 60px;
+                    width: 80px;
             } 
             #category{
                     width: 60px;
@@ -99,7 +99,7 @@
                     width: 100px;
                 }
                 #search{
-                    width: 60px;
+                    width: 80px;
                 }                
                 #category{
                     width: 60px;
