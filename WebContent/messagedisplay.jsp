@@ -159,7 +159,7 @@
 		<%} %>
 		<%} else if (message instanceof RatingMessage){ %>
 			
-			<form>
+			<form action="addrating" method="POST">
 				<fieldset class="rating">
 				    <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
 				
@@ -172,7 +172,7 @@
 				    <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
 				   
 				</fieldset>
-				<button type= "submit" onclick="whichChecked()" > Submit Rating!</button>
+				<button type= "submit" name="ratedUser" value="<%= message.getBuyerId() %>" > Submit Rating!</button>
 			</form>
 			
 			<script>
