@@ -62,7 +62,7 @@
 		<tr>
 		    <th rowspan="10">
 		    		<div class= "oneitemimage" id="oneitemimage">
-    					<img src=<%=currItem.getImage() %>>
+    					<img src=<%=currItem.getImage() %> style="width:150px;height:150px;">
     				</div>
 		    </th>
 		    <td>
