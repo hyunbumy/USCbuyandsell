@@ -58,7 +58,7 @@ public class Post extends HttpServlet {
 			category = Category.OTHER;
 			break;
 		default:
-			category = null;
+			category = Category.OTHER;
 		}
 		Integer quantity = Integer.parseInt(request.getParameter("quantity"));
 		String image = request.getParameter("image");

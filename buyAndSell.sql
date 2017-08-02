@@ -84,6 +84,7 @@ CREATE TABLE UserRatings (
 CREATE TABLE RatingMessage (
 
 	ratedUser INT(6) NOT NULL,
+    ratingUser INT(6) NOT NULL,
 	itemID int(6) NOT NULL,
     isRead bool NOT NULL,
     sentTime VARCHAR (100), 
@@ -91,7 +92,8 @@ CREATE TABLE RatingMessage (
     ratingID INT(5) PRIMARY KEY AUTO_INCREMENT,
     
     
-    FOREIGN KEY fk1(ratedUser) REFERENCES UserTable(userID)
+    FOREIGN KEY fk1(ratedUser) REFERENCES UserTable(userID),
+    FOREIGN KEY fk2(ratingUser) REFERENCES UserTable(userID)
 	
 
 );
