@@ -75,7 +75,7 @@
 			    		<%} %>
 			    		</h2>
 			    		<br>
-			    		<h3>Price: <%= currItem.getPrice() %> <br>
+			    		<h3>Price: $<%= currItem.getPrice() %> <br>
 			    		Quantity: <%=currItem.getQuantity() %>
 					</h3>
 					<br>
