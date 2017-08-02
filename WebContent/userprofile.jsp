@@ -92,8 +92,8 @@
 			    		Name: <%=selectedUser.getfName() %> <% selectedUser.getlName();%>
 			    		<br>
 			    		<%
-					int roundedRating = (int) Math.round(selectedUser.getRating());
-					
+			    	int roundedRating = (int) Math.round(StoreDatabase.getCurrUserRating());
+			    	float rating = selectedUser.getRating();
 					%>
 					<% for(int i = 0; i < roundedRating; i++){ %>
 							<span>★</span>

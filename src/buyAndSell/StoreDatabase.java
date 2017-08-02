@@ -86,6 +86,7 @@ public class StoreDatabase {
 				}
 				float average = total/numRatings;
 				u.setRating(average);
+				System.out.println(average);
 				
 				
 				return true;
@@ -96,9 +97,40 @@ public class StoreDatabase {
 		}	
 		
 		//failure
-		return false;
-		
+		return false;	
 	}
+	
+	//return boolean of success or failure
+	public static float getCurrUserRating() {	
+		//query db
+		Statement st = connect();
+		ResultSet rs;
+		try {
+			//check the ratings table
+			String query = "SELECT rating from UserRatings WHERE userID="+currUser.getUserID();
+			Vector<Integer> ratings = new Vector<Integer>();
+			rs = st.executeQuery(query);
+			while (rs.next()) {
+				int rating = rs.getInt("rating");
+				ratings.add(rating);
+			}
+			//average it
+			float total = (float) 0.0;
+			float numRatings = (float) ratings.size();
+			for (int i = 0; i < ratings.size(); i++) {
+				total += (float) ratings.get(i);
+			}
+			float average = total/numRatings;
+			currUser.setRating(average);
+			return average;
+
+		} catch (SQLException e) {
+			System.out.println("Login failure: " + e.getMessage());
+		}	
+			
+		return (float) 0.0;
+	}
+	
 	
 	
 	/*
@@ -601,6 +633,7 @@ public class StoreDatabase {
 		try {
 			rs = st.executeQuery(query);
 			
+			//find out which one isn't the current user
 			if (rs.next()) {
 				int user1 = rs.getInt("ratingUser");
 				int user2 = rs.getInt("ratedUser");
