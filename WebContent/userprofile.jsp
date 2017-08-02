@@ -96,11 +96,11 @@
 			    	float rating = selectedUser.getRating();
 					%>
 					<% for(int i = 0; i < roundedRating; i++){ %>
-							<span>★</span>
+							<span style="color:#FEBA1C">★</span>
 					<%	}
 					%>
 					<% for(int i = 0; i < (5-roundedRating); i++){ %>
-							<span>☆</span>
+							<span style="color:#F4AA00">☆</span>
 					<% } %>
 					<br>
 					Phone: <%= " " + selectedUser.getPhoneNumber() + " " %>
