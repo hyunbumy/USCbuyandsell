@@ -80,6 +80,32 @@
         		border: 1px solid;
         		box-sizing:border-box;
         	}
+            #search{
+                    width: 60px;
+            } 
+            #category{
+                    width: 60px;
+            }
+
+
+            @media screen and (max-width: 700px) 
+            {
+                
+
+                #title {
+                    font-size: 30px;
+                }
+                #searchbar{
+                    width: 100px;
+                }
+                #search{
+                    width: 60px;
+                }                
+                #category{
+                    width: 60px;
+                }
+             
+            }
         </style>
         
         <script>
@@ -111,7 +137,7 @@
         <h1 id="title">USC BUY AND SELL</h1>
         <form name="search_form" action="search" method="GET">
         	<select name="category" value="all">
-        	<option value="all">All</option>
+        	<option id="category" value="all">All</option>
         	<%
         	for (int i = 0; i < allCategories.length; i++) {
         		//formating the category names
@@ -126,8 +152,8 @@
         	%>
         	 
         	</select>
-        	<input type="text" name="term" placeholder="Search for an item!">
-        	<input type="submit" value="SEARCH">
+        	<input id="searchbar" type="text" name="term" placeholder="Search for an item!">
+        	<input id="search" type="submit" value="SEARCH">
         </form><br/>
         </div>
 
