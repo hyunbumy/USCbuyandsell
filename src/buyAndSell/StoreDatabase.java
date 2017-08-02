@@ -33,7 +33,7 @@ public class StoreDatabase {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			//Connection conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/USCbuyandsell?user=root&password=root");
-			Connection conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/USCbuyandsell?user=root&password=root");
+			Connection conn = (Connection) DriverManager.getConnection("jdbc:mysql://buyandselldb.cphsc4421sco.us-east-2.rds.amazonaws.com:3306/USCbuyandsell?user=root&password=uscbuyandsell");
 			Statement st = (Statement) conn.createStatement();
 			return st;
 		} catch(SQLException sqle) {
