@@ -18,10 +18,10 @@ public class addrating extends HttpServlet {
    
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String strRating = request.getParameter("rating");
-		String strUser = request.getParameter("ratedUser");
+		String strMsgID = request.getParameter("messageID");
 		int rating = Integer.parseInt(strRating);
-		int userID = Integer.parseInt(strUser);
-		StoreDatabase.addRating(userID, rating);
+		int messageID = Integer.parseInt(strMsgID);
+		StoreDatabase.addRating(messageID, rating);
 		
 		RequestDispatcher dispatch = request.getServletContext().getRequestDispatcher("/inbox.jsp");
 		dispatch.forward(request, response);

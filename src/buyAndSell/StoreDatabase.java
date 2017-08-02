@@ -593,15 +593,32 @@ public class StoreDatabase {
 		return null;
 	}
 	
-	public static void addRating(int ratedUserID, int rating) {
+	public static void addRating(int messageID, int rating) {
 		Statement st = connect();
-
-		//add rating to RatingTable
-		String query = "INSERT INTO UserRatings(userID, rating)\n";
-		query += "VALUES("+ratedUserID+", "+rating+")";
+		//get the two users from the messageID
+		String query = "SELECT ratedUser, ratingUser FROM RatingMessage WHERE ratingID="+messageID;
+		ResultSet rs;
 		try {
-			st.execute(query);
+			rs = st.executeQuery(query);
 			
+			if (rs.next()) {
+				int user1 = rs.getInt("ratingUser");
+				int user2 = rs.getInt("ratedUser");
+				
+				int userID = 0;
+				if (user1 == currUser.getUserID()) {
+					userID = user2;
+				}
+				else if (user2 == currUser.getUserID()) {
+					userID = user1;
+				}
+				
+				//add rating to RatingTable
+				query = "INSERT INTO UserRatings(userID, rating)\n";
+				query += "VALUES("+userID+", "+rating+")";
+				
+				st.execute(query);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

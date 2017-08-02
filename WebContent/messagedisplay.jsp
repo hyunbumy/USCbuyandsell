@@ -172,7 +172,7 @@
 				    <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
 				   
 				</fieldset>
-				<button type= "submit" name="ratedUser" value="<%= message.getBuyerId() %>" > Submit Rating!</button>
+				<button type= "submit" name="messageID" value="<%= message.getMessageId() %>" > Submit Rating!</button>
 			</form>
 			
 			<script>
