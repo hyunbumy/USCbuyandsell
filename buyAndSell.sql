@@ -13,7 +13,7 @@ CREATE TABLE UserTable (
     email VARCHAR(20) NOT NULL,
     phoneNum VARCHAR(15) NOT NULL,
 	rating FLOAT,
-    image VARCHAR(100),
+    image VARCHAR(2083),
 	userID INT (5) PRIMARY KEY AUTO_INCREMENT
 
 );
@@ -26,7 +26,7 @@ CREATE TABLE ItemsTable (
     category VARCHAR(20) NOT NULL, -- need to decide if I want to make a CategoriesTable to store the ones we have
 	quantity INT(3) NOT NULL, -- on front end, if they don't enter a quantiy we must set it to 1
     description VARCHAR(100),
-	image VARCHAR(100),
+	image VARCHAR(2083),
     itemID INT(6) PRIMARY KEY AUTO_INCREMENT,
 
     -- selling user is the auto-generated key from UserTable

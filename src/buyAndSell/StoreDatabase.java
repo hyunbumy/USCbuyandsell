@@ -20,6 +20,7 @@ import com.mysql.jdbc.Statement;
 public class StoreDatabase {
 	
 	private static User currUser = null;
+	private static Connection conn = null;
 	
 	// I don't think this constructor is actually being called
 	public StoreDatabase (){
@@ -31,9 +32,11 @@ public class StoreDatabase {
 	private static Statement connect() {
 		//establish database connection
 		try {
+			if (conn != null)
+				conn.close();
 			Class.forName("com.mysql.jdbc.Driver");
 			//Connection conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/USCbuyandsell?user=root&password=root");
-			Connection conn = (Connection) DriverManager.getConnection("jdbc:mysql://buyandselldb.cphsc4421sco.us-east-2.rds.amazonaws.com:3306/USCbuyandsell?user=root&password=uscbuyandsell");
+			conn = (Connection) DriverManager.getConnection("jdbc:mysql://buyandselldb.cphsc4421sco.us-east-2.rds.amazonaws.com:3306/USCbuyandsell?user=root&password=uscbuyandsell");
 			Statement st = (Statement) conn.createStatement();
 			return st;
 		} catch(SQLException sqle) {
